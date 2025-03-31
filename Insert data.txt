@@ -1,0 +1,48 @@
+INSERT INTO trucks (license_plate, brand, year_of_mfg, num_of_drivers, num_of_helpers) VALUES
+('ABC-123', 'Volvo', 2018, 2, 1),
+('XYZ-456', 'Mercedes', 2020, 1, 2),
+('LMN-789', 'Scania', 2019, 2, 2),
+('JKL-012', 'MAN', 2017, 1, 1),
+('PQR-345', 'DAF', 2021, 3, 2),
+('GHI-678', 'Iveco', 2016, 2, 1);
+
+INSERT INTO drivers (name, license_number, phone, assigned_truck) VALUES
+('John Doe', 'D12345', '555-1234', 'ABC-123'),
+('Jane Smith', 'D67890', '555-5678', 'XYZ-456'),
+('Robert Brown', 'D13579', '555-9876', 'LMN-789'),
+('Alice Johnson', 'D24680', '555-4321', 'JKL-012'),
+('Michael Davis', 'D11223', '555-1111', 'PQR-345'),
+('Sarah Wilson', 'D33445', '555-2222', 'GHI-678');
+
+INSERT INTO maintenance (license_plate, type, cost, date) VALUES
+('ABC-123', 'Oil Change', 200.00, '2024-01-15'),
+('XYZ-456', 'Brake Replacement', 500.00, '2024-02-10'),
+('LMN-789', 'Tire Change', 300.00, '2024-03-05'),
+('JKL-012', 'Engine Check', 700.00, '2024-03-20'),
+('PQR-345', 'Battery Replacement', 250.00, '2024-04-01'),
+('GHI-678', 'Transmission Repair', 900.00, '2024-04-15');
+
+INSERT INTO job_cards (license_plate, current_status, current_location, assigned_driver) VALUES
+('ABC-123', 'On Route', 'New York', 'John Doe'),
+('XYZ-456', 'Idle', 'Los Angeles', 'Jane Smith'),
+('LMN-789', 'In Maintenance', 'Chicago', 'Robert Brown'),
+('JKL-012', 'On Route', 'Houston', 'Alice Johnson'),
+('PQR-345', 'Idle', 'Miami', 'Michael Davis'),
+('GHI-678', 'On Route', 'Seattle', 'Sarah Wilson');
+
+INSERT INTO clients (name, company_name, phone, email) VALUES
+('David Miller', 'ABC Logistics', '666-1111', 'david@abclogistics.com'),
+('Emma Johnson', 'XYZ Transport', '666-2222', 'emma@xyztransport.com'),
+('James Williams', 'FastTrack Shipping', '666-3333', 'james@fasttrack.com'),
+('Olivia Brown', 'Express Cargo', '666-4444', 'olivia@expresscargo.com'),
+('William Garcia', 'Speedy Freight', '666-5555', 'william@speedyfreight.com'),
+('Sophia Martinez', 'QuickLoad', '666-6666', 'sophia@quickload.com');
+
+INSERT INTO deliveries (client_id, license_plate, delivery_date, destination, status) VALUES
+(1, 'ABC-123', '2024-03-21', 'Boston', 'In Transit'),
+(2, 'XYZ-456', '2024-03-22', 'San Francisco', 'Pending'),
+(3, 'LMN-789', '2024-03-23', 'Dallas', 'Completed'),
+(4, 'JKL-012', '2024-03-24', 'Atlanta', 'In Transit'),
+(5, 'PQR-345', '2024-03-25', 'Denver', 'Pending'),
+(6, 'GHI-678', '2024-03-26', 'Phoenix', 'Completed');
+

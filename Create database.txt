@@ -1,0 +1,58 @@
+CREATE DATABASE corporate;
+USE corporate;
+
+CREATE TABLE trucks (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    license_plate VARCHAR(20) UNIQUE NOT NULL,
+    brand VARCHAR(50),
+    year_of_mfg INT,
+    num_of_drivers INT,
+    num_of_helpers INT
+);
+
+CREATE TABLE maintenance (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    license_plate VARCHAR(20),
+    type VARCHAR(100),
+    cost DECIMAL(10,2),
+    date DATE,
+    FOREIGN KEY (license_plate) REFERENCES trucks(license_plate) ON DELETE CASCADE
+);
+
+CREATE TABLE job_cards (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    license_plate VARCHAR(20),
+    current_status VARCHAR(50),
+    current_location VARCHAR(100),
+    assigned_driver VARCHAR(100),
+    FOREIGN KEY (license_plate) REFERENCES trucks(license_plate) ON DELETE CASCADE
+);
+
+CREATE TABLE drivers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    license_number VARCHAR(50) UNIQUE,
+    phone VARCHAR(20),
+    assigned_truck VARCHAR(20),
+    FOREIGN KEY (assigned_truck) REFERENCES trucks(license_plate) ON DELETE SET NULL
+);
+
+CREATE TABLE clients (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(100),
+    company_name VARCHAR(100),
+    phone VARCHAR(20),
+    email VARCHAR(100) UNIQUE
+);
+
+CREATE TABLE deliveries (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    client_id INT,
+    license_plate VARCHAR(20),
+    delivery_date DATE,
+    destination VARCHAR(200),
+    status VARCHAR(50),
+    FOREIGN KEY (client_id) REFERENCES clients(id) ON DELETE CASCADE,
+    FOREIGN KEY (license_plate) REFERENCES trucks(license_plate) ON DELETE SET NULL
+);
+
