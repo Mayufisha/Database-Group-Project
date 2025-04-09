@@ -9,6 +9,7 @@ interface.
 
 2 Project Requirements
 The project must meet the following key criteria:
+
         1. Complexity of the Idea and Applicability:
         • The project should involve a database that is complex enough to demonstrate your
         understanding of the course concepts, including normalization and data modeling.
