@@ -1,0 +1,27 @@
+2NF Transportation Management Database Schema
+
+A. Tables in Second Normal Form
+
+Vehicle {Vehicle_ID, License_Plate, Make_Model, Year, DateOfPurchase, Acquisition_Cost, Current_Mileage, Fuel_Type, Capacity_Weight}
+Driver {Driver_ID, Driver_Name, Driver_ContactNumber, Driver_SSN, Driver_License_Number, License_Expiration_Date, Employment_Start_Date, Emergency_Contact, Address, Qualification_Details}
+Vehicle_Driver_Assignment {Assignment_ID, Vehicle_ID, Driver_ID, Assignment_Start_Date, Assignment_End_Date, Is_Current}
+Maintenance {Maintenance_ID, Vehicle_ID, Maintenance_Date, Maintenance_Type, Cost, Service_Provider, Description, Next_Service_Date, Service_Status}
+Load {Load_ID, Vehicle_ID, Source, Destination, Scheduled_Departure, Scheduled_Arrival, Actual_Departure, Actual_Arrival, Delivery_Status, Special_Instructions}
+Customer {Customer_ID, Customer_Name, Customer_Contact}
+Load_Customer {Load_ID, Customer_ID}
+Cargo {Cargo_ID, Load_ID, Load_Description, Load_Weight}
+Status {Status_ID, Vehicle_ID, Current_Location, Current_Status, Last_Updated, Fuel_Level, Estimated_Time_To_Destination, Next_Scheduled_Stop}
+
+
+B. Changes from 1NF to 2NF:
+
+1. Created a separate **Customer** table to eliminate partial dependency of Customer_Name and Customer_Contact on Load_ID
+2. Added a **Load_Customer** junction table to represent many-to-many relationship between loads and customers
+3. Created a separate **Cargo** table to isolate cargo-specific details from the Load table
+
+C. Notes on the 2NF Transformation:
+
+- Most of the original tables were already in 2NF since they had simple primary keys with no partial dependencies
+- The Load table had a partial dependency where customer information depended only on the customer, not on the specific load
+- The cargo information was separated to follow good design practices in case multiple types of cargo are associated with a single load
+- All non-key attributes now depend on the entire primary key of their respective tables

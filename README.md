@@ -69,7 +69,7 @@ Your final project will be assessed based on the following criteria:
 4 Submission Requirements
 The final project should include the following:
 
-        1. GitHub Repository: Your project must be uploaded to a GitHub repository. The rrepository should contain all the source code, SQL files, documentation, and any other relevant files.
+        1. GitHub Repository: Your project must be uploaded to a GitHub repository. The repository should contain all the source code, SQL files, documentation, and any other relevant files.
         Ensure that the repository is well-organized, and commit messages are clear and descriptive.
         2. You should submit the link for the repository to Moodle.
         3. One page of project explanation like what the project is about and its features.

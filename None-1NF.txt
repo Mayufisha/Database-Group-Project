@@ -1,0 +1,25 @@
+Non-1NF Transportation Management Database Schema
+TransportManagement { VehicleInfo, DriverInfo, MaintenanceHistory, LoadHistory, CurrentStatus }
+
+Column details:
+VehicleInfo {composite attribute} {License_Plate, Make_Model, Year, DateOfPurchase, Acquisition_Cost, Current_Mileage, Fuel_Type, Capacity_Weight}
+DriverInfo {composite attribute} {Driver_Name, Driver_ContactNumber, Driver_SSN, Driver_License_Number, License_Expiration_Date, Employment_Start_Date, Emergency_Contact, Address, Qualification_Details}
+MaintenanceHistory [array of Objects] [{Maintenance_Date, Maintenance_Type, Cost, Service_Provider, Description, Next_Service_Date, Service_Status}, ...]
+LoadHistory [array of Objects] [{Source, Destination, Scheduled_Departure, Scheduled_Arrival, Actual_Departure, Actual_Arrival, Customer_Name, Customer_Contact, Load_Description, Load_Weight, Delivery_Status, Special_Instructions}, ...]
+CurrentStatus {composite attribute} {Current_Location, Current_Status, Last_Updated, Fuel_Level, Estimated_Time_To_Destination, Next_Scheduled_Stop}
+
+
+
+Problems with this Non-1NF Design:
+
+1. Violation of Atomic Values: Multiple attributes are grouped together within composite structures rather than being stored as individual atomic columns.
+2. Repeating Groups: The MaintenanceHistory and LoadHistory columns contain arrays of objects, creating repeating groups within a single record.
+3. Multi-valued Attributes: Several fields contain multiple values stored within complex data structures.
+4. Update Anomalies: Updating a driver's information would require finding all records associated with that driver.
+5. Insert Anomalies: Unable to add a new driver unless they are assigned to a vehicle.
+6. Delete Anomalies: Deleting a vehicle record would also remove all associated maintenance and load history.
+7. Data Redundancy: Driver information is duplicated across multiple records if a driver operates multiple vehicles.
+8. Query Complexity: Extracting specific information requires complex querying and parsing of nested data structures.
+9. Indexing Issues: Cannot efficiently index data within arrays or composite structures.
+10 Lack of Referential Integrity: No defined relationships between logical entities.
+11. Scalability Concerns: As the dataset grows, performance will degrade due to the complexity of the data structure.

@@ -1,0 +1,9 @@
+Tables in First Normal Form created PK and FK for each table respectively.
+New tables were created to eliminate problems on none-1NF form.
+
+Vehicle {Vehicle_ID(PK), License_Plate, Make_Model, Year, DateOfPurchase, Acquisition_Cost, Current_Mileage, Fuel_Type, Capacity_Weight}
+Driver {Driver_ID(PK), Driver_Name, Driver_ContactNumber, Driver_SSN, Driver_License_Number, License_Expiration_Date, Employment_Start_Date, Emergency_Contact, Address, Qualification_Details}
+Vehicle_Driver_Assignment {Assignment_ID(PK), Vehicle_ID(FK), Driver_ID(FK), Assignment_Start_Date, Assignment_End_Date, Is_Current}
+Maintenance {Maintenance_ID(PK), Vehicle_ID(FK), Maintenance_Date, Maintenance_Type, Cost, Service_Provider, Description, Next_Service_Date, Service_Status}
+Load {Load_ID(PK), Vehicle_ID(FK), Source, Destination, Scheduled_Departure, Scheduled_Arrival, Actual_Departure, Actual_Arrival, Customer_Name, Customer_Contact, Load_Description, Load_Weight, Delivery_Status, Special_Instructions}
+Status {Status_ID(PK), Vehicle_ID(FK), Current_Location, Current_Status, Last_Updated, Fuel_Level, Estimated_Time_To_Destination, Next_Scheduled_Stop}
