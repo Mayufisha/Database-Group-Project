@@ -1,0 +1,58 @@
+BCNF Transportation Management Database Schema 
+
+A. Tables in Boyce-Codd Normal Form
+
+Vehicle {Vehicle_ID, License_Plate, Vehicle_Type_ID, Year, DateOfPurchase, Acquisition_Cost, Current_Mileage, Capacity_Weight}
+Vehicle_Type {Vehicle_Type_ID, Make_Model, Default_Capacity, Fuel_Type_ID}
+Fuel_Type {Fuel_Type_ID, Fuel_Name, Fuel_Description}
+Driver {Driver_ID, Driver_Name, Driver_ContactNumber, Driver_SSN, Driver_License_Number, License_Expiration_Date, Employment_Start_Date}
+Driver_Emergency_Contact {Driver_ID, Emergency_Contact_ID}
+Emergency_Contact {Emergency_Contact_ID, Contact_Name, Contact_Relationship, Contact_Phone}
+Driver_Address {Driver_ID, Address_ID}
+Address {Address_ID, Street, City, State, ZIP, Country}
+Driver_Qualification {Driver_ID, Qualification_ID}
+Qualification {Qualification_ID, Qualification_Type, Description, Expiration_Date, Issuing_Authority}
+Vehicle_Driver_Assignment {Assignment_ID, Vehicle_ID, Driver_ID, Assignment_Start_Date, Assignment_End_Date, Is_Current}
+Maintenance {Maintenance_ID, Vehicle_ID, Maintenance_Date, Maintenance_Type_ID, Cost, Service_Provider_ID, Description, Next_Service_Date, Service_Status_ID}
+Maintenance_Type {Maintenance_Type_ID, Type_Name, Description, Standard_Interval}
+Service_Provider {Service_Provider_ID, Provider_Name, Contact_Information, Rating}
+Service_Provider_Address {Service_Provider_ID, Address_ID}
+Service_Status {Service_Status_ID, Status_Name, Description}
+Location {Location_ID, Location_Name, Latitude, Longitude}
+Location_Address {Location_ID, Address_ID}
+Load {Load_ID, Vehicle_ID, Source_Location_ID, Destination_Location_ID, Scheduled_Departure, Scheduled_Arrival, Actual_Departure, Actual_Arrival, Delivery_Status_ID, Special_Instructions}
+Customer {Customer_ID, Customer_Name, Customer_Contact}
+Customer_Address {Customer_ID, Address_ID}
+Load_Customer {Load_ID, Customer_ID}
+Cargo {Cargo_ID, Load_ID, Cargo_Type_ID, Load_Weight}
+Cargo_Type {Cargo_Type_ID, Type_Name, Description, Handling_Instructions}
+Delivery_Status {Delivery_Status_ID, Status_Name, Description}
+Status {Status_ID, Vehicle_ID, Current_Location_ID, Current_Status_ID, Last_Updated, Fuel_Level, Estimated_Time_To_Destination, Next_Scheduled_Stop_ID}
+Vehicle_Status_Type {Status_Type_ID, Status_Name, Description}
+
+B. Changes from 3NF to BCNF:
+
+1. **Addressing Multi-Valued Dependencies**:
+   - Created separate junction tables for many-to-many relationships:
+     - Driver_Emergency_Contact
+     - Driver_Address
+     - Driver_Qualification
+     - Service_Provider_Address
+     - Location_Address
+     - Customer_Address
+
+2. **Removing Functional Dependencies on Non-Keys**:
+   - Modified Vehicle table to reference Vehicle_Type_ID instead of storing Make_Model and Fuel_Type directly
+   - Ensured all determinant attributes are candidate keys
+
+3. **Normalizing Composite Attributes**:
+   - Restructured relationships between entities and their addresses using junction tables
+   - Separated location data from address data {conceptually different}
+
+4. **Ensuring All Determinants are Candidate Keys**:
+   - Reviewed all tables to ensure every determinant {attribute that determines other attributes} is a candidate key
+   - Created junction tables where needed to enforce this rule
+
+These changes ensure that for every non-trivial functional dependency X → Y in the database:
+- X is a superkey {i.e., X can uniquely determine all attributes in the table}
+- This eliminates certain types of anomalies that can occur even in 3NF

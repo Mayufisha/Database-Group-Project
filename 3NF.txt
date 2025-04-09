@@ -1,0 +1,55 @@
+3NF Transportation Management Database Schema
+
+A. Tables in Third Normal Form
+
+Vehicle {Vehicle_ID, License_Plate, Make_Model, Year, DateOfPurchase, Acquisition_Cost, Current_Mileage, Fuel_Type, Capacity_Weight}
+Vehicle_Type {Vehicle_Type_ID, Make_Model, Default_Capacity, Fuel_Type_ID}
+Fuel_Type {Fuel_Type_ID, Fuel_Name, Fuel_Description}
+Driver {Driver_ID, Driver_Name, Driver_ContactNumber, Driver_SSN, Driver_License_Number, License_Expiration_Date, Employment_Start_Date, Emergency_Contact_ID, Address_ID, Qualification_ID}
+Emergency_Contact {Emergency_Contact_ID, Contact_Name, Contact_Relationship, Contact_Phone}
+Address {Address_ID, Street, City, State, ZIP, Country}
+Qualification {Qualification_ID, Qualification_Type, Description, Expiration_Date, Issuing_Authority}
+Vehicle_Driver_Assignment {Assignment_ID, Vehicle_ID, Driver_ID, Assignment_Start_Date, Assignment_End_Date, Is_Current}
+Maintenance {Maintenance_ID, Vehicle_ID, Maintenance_Date, Maintenance_Type_ID, Cost, Service_Provider_ID, Description, Next_Service_Date, Service_Status_ID}
+Maintenance_Type {Maintenance_Type_ID, Type_Name, Description, Standard_Interval}
+Service_Provider {Service_Provider_ID, Provider_Name, Contact_Information, Address_ID, Rating}
+Service_Status {Service_Status_ID, Status_Name, Description}
+Location {Location_ID, Location_Name, Latitude, Longitude, Address_ID}
+Load {Load_ID, Vehicle_ID, Source_Location_ID, Destination_Location_ID, Scheduled_Departure, Scheduled_Arrival, Actual_Departure, Actual_Arrival, Delivery_Status_ID, Special_Instructions}
+Customer {Customer_ID, Customer_Name, Customer_Contact, Address_ID}
+Load_Customer {Load_ID, Customer_ID}
+Cargo {Cargo_ID, Load_ID, Cargo_Type_ID, Load_Weight}
+Cargo_Type {Cargo_Type_ID, Type_Name, Description, Handling_Instructions}
+Delivery_Status {Delivery_Status_ID, Status_Name, Description}
+Status {Status_ID, Vehicle_ID, Current_Location_ID, Current_Status_ID, Last_Updated, Fuel_Level, Estimated_Time_To_Destination, Next_Scheduled_Stop_ID}
+Vehicle_Status_Type {Status_Type_ID, Status_Name, Description}
+
+B. Changes from 2NF to 3NF:
+
+1. **Location Management**:
+   - Added Location table to remove transitive dependencies related to geographical locations
+   - Updated Load and Status tables to reference Location IDs
+
+2. **Type Classifications**:
+   - Added Vehicle_Type, Fuel_Type, Maintenance_Type, Service_Status, Cargo_Type, Delivery_Status, and Vehicle_Status_Type tables
+   - These remove transitive dependencies where descriptions depended on type names, not primary keys
+
+3. **Contact Information**:
+   - Added Emergency_Contact table
+   - Enhanced Address management with a dedicated table
+   - Updated references in Driver, Service_Provider, and Customer tables
+
+4. **Service Management**:
+   - Added Service_Provider table to manage maintenance service providers
+   - Created Service_Status table to standardize status descriptions
+
+5. **Cargo Information**:
+   - Added Cargo_Type table to standardize cargo classification
+   - Updated Cargo table to reference Cargo_Type
+
+6. **Qualification Management**:
+   - Added Qualification table to properly manage driver qualifications
+
+These changes eliminate transitive dependencies by ensuring each non-key attribute is:
+- Dependent on the primary key
+- Not dependent on another non-key attribute
