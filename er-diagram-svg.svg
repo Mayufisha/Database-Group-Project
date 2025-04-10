@@ -1,0 +1,376 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 2000">
+  <style>
+    .entity {
+      fill: #f5f5f5;
+      stroke: #333;
+      stroke-width: 2;
+    }
+    .entity-title {
+      font-family: Arial, sans-serif;
+      font-size: 16px;
+      font-weight: bold;
+      fill: #333;
+    }
+    .entity-attribute {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      fill: #333;
+    }
+    .pk {
+      font-weight: bold;
+    }
+    .fk {
+      font-style: italic;
+    }
+    .relationship {
+      stroke: #666;
+      stroke-width: 2;
+      fill: none;
+    }
+    .relationship-text {
+      font-family: Arial, sans-serif;
+      font-size: 12px;
+      fill: #666;
+    }
+    .cardinality {
+      font-family: Arial, sans-serif;
+      font-size: 14px;
+      font-weight: bold;
+      fill: #666;
+    }
+  </style>
+  
+  <!-- Entities -->
+  
+  <!-- Vehicle -->
+  <rect x="50" y="50" width="200" height="180" class="entity" rx="5" ry="5" />
+  <text x="150" y="75" text-anchor="middle" class="entity-title">VEHICLE</text>
+  <line x1="50" y1="85" x2="250" y2="85" stroke="#333" stroke-width="1" />
+  <text x="60" y="105" class="entity-attribute pk">Vehicle_ID (PK)</text>
+  <text x="60" y="125" class="entity-attribute">License_Plate</text>
+  <text x="60" y="145" class="entity-attribute fk">Vehicle_Type_ID (FK)</text>
+  <text x="60" y="165" class="entity-attribute">Year</text>
+  <text x="60" y="185" class="entity-attribute">DateOfPurchase</text>
+  <text x="60" y="205" class="entity-attribute">Acquisition_Cost</text>
+  <text x="60" y="225" class="entity-attribute">Current_Mileage</text>
+  
+  <!-- Vehicle_Type -->
+  <rect x="350" y="50" width="200" height="120" class="entity" rx="5" ry="5" />
+  <text x="450" y="75" text-anchor="middle" class="entity-title">VEHICLE_TYPE</text>
+  <line x1="350" y1="85" x2="550" y2="85" stroke="#333" stroke-width="1" />
+  <text x="360" y="105" class="entity-attribute pk">Vehicle_Type_ID (PK)</text>
+  <text x="360" y="125" class="entity-attribute">Make_Model</text>
+  <text x="360" y="145" class="entity-attribute">Default_Capacity</text>
+  <text x="360" y="165" class="entity-attribute fk">Fuel_Type_ID (FK)</text>
+  
+  <!-- Fuel_Type -->
+  <rect x="650" y="50" width="200" height="100" class="entity" rx="5" ry="5" />
+  <text x="750" y="75" text-anchor="middle" class="entity-title">FUEL_TYPE</text>
+  <line x1="650" y1="85" x2="850" y2="85" stroke="#333" stroke-width="1" />
+  <text x="660" y="105" class="entity-attribute pk">Fuel_Type_ID (PK)</text>
+  <text x="660" y="125" class="entity-attribute">Fuel_Name</text>
+  <text x="660" y="145" class="entity-attribute">Fuel_Description</text>
+  
+  <!-- Driver -->
+  <rect x="50" y="300" width="200" height="160" class="entity" rx="5" ry="5" />
+  <text x="150" y="325" text-anchor="middle" class="entity-title">DRIVER</text>
+  <line x1="50" y1="335" x2="250" y2="335" stroke="#333" stroke-width="1" />
+  <text x="60" y="355" class="entity-attribute pk">Driver_ID (PK)</text>
+  <text x="60" y="375" class="entity-attribute">Driver_Name</text>
+  <text x="60" y="395" class="entity-attribute">Driver_ContactNumber</text>
+  <text x="60" y="415" class="entity-attribute">Driver_SSN</text>
+  <text x="60" y="435" class="entity-attribute">Driver_License_Number</text>
+  <text x="60" y="455" class="entity-attribute">License_Expiration_Date</text>
+  
+  <!-- Emergency_Contact -->
+  <rect x="350" y="300" width="200" height="120" class="entity" rx="5" ry="5" />
+  <text x="450" y="325" text-anchor="middle" class="entity-title">EMERGENCY_CONTACT</text>
+  <line x1="350" y1="335" x2="550" y2="335" stroke="#333" stroke-width="1" />
+  <text x="360" y="355" class="entity-attribute pk">Emergency_Contact_ID (PK)</text>
+  <text x="360" y="375" class="entity-attribute">Contact_Name</text>
+  <text x="360" y="395" class="entity-attribute">Contact_Relationship</text>
+  <text x="360" y="415" class="entity-attribute">Contact_Phone</text>
+  
+  <!-- Driver_Emergency_Contact -->
+  <rect x="200" y="500" width="200" height="80" class="entity" rx="5" ry="5" />
+  <text x="300" y="525" text-anchor="middle" class="entity-title">DRIVER_EMERGENCY_CONTACT</text>
+  <line x1="200" y1="535" x2="400" y2="535" stroke="#333" stroke-width="1" />
+  <text x="210" y="555" class="entity-attribute pk fk">Driver_ID (PK, FK)</text>
+  <text x="210" y="575" class="entity-attribute pk fk">Emergency_Contact_ID (PK, FK)</text>
+  
+  <!-- Address -->
+  <rect x="650" y="300" width="200" height="140" class="entity" rx="5" ry="5" />
+  <text x="750" y="325" text-anchor="middle" class="entity-title">ADDRESS</text>
+  <line x1="650" y1="335" x2="850" y2="335" stroke="#333" stroke-width="1" />
+  <text x="660" y="355" class="entity-attribute pk">Address_ID (PK)</text>
+  <text x="660" y="375" class="entity-attribute">Street</text>
+  <text x="660" y="395" class="entity-attribute">City</text>
+  <text x="660" y="415" class="entity-attribute">State</text>
+  <text x="660" y="435" class="entity-attribute">ZIP</text>
+  <text x="660" y="455" class="entity-attribute">Country</text>
+  
+  <!-- Driver_Address -->
+  <rect x="450" y="500" width="200" height="80" class="entity" rx="5" ry="5" />
+  <text x="550" y="525" text-anchor="middle" class="entity-title">DRIVER_ADDRESS</text>
+  <line x1="450" y1="535" x2="650" y2="535" stroke="#333" stroke-width="1" />
+  <text x="460" y="555" class="entity-attribute pk fk">Driver_ID (PK, FK)</text>
+  <text x="460" y="575" class="entity-attribute pk fk">Address_ID (PK, FK)</text>
+  
+  <!-- Qualification -->
+  <rect x="50" y="600" width="200" height="140" class="entity" rx="5" ry="5" />
+  <text x="150" y="625" text-anchor="middle" class="entity-title">QUALIFICATION</text>
+  <line x1="50" y1="635" x2="250" y2="635" stroke="#333" stroke-width="1" />
+  <text x="60" y="655" class="entity-attribute pk">Qualification_ID (PK)</text>
+  <text x="60" y="675" class="entity-attribute">Qualification_Type</text>
+  <text x="60" y="695" class="entity-attribute">Description</text>
+  <text x="60" y="715" class="entity-attribute">Expiration_Date</text>
+  <text x="60" y="735" class="entity-attribute">Issuing_Authority</text>
+  
+  <!-- Driver_Qualification -->
+  <rect x="300" y="600" width="200" height="80" class="entity" rx="5" ry="5" />
+  <text x="400" y="625" text-anchor="middle" class="entity-title">DRIVER_QUALIFICATION</text>
+  <line x1="300" y1="635" x2="500" y2="635" stroke="#333" stroke-width="1" />
+  <text x="310" y="655" class="entity-attribute pk fk">Driver_ID (PK, FK)</text>
+  <text x="310" y="675" class="entity-attribute pk fk">Qualification_ID (PK, FK)</text>
+  
+  <!-- Vehicle_Driver_Assignment -->
+  <rect x="550" y="600" width="200" height="140" class="entity" rx="5" ry="5" />
+  <text x="650" y="625" text-anchor="middle" class="entity-title">VEHICLE_DRIVER_ASSIGNMENT</text>
+  <line x1="550" y1="635" x2="750" y2="635" stroke="#333" stroke-width="1" />
+  <text x="560" y="655" class="entity-attribute pk">Assignment_ID (PK)</text>
+  <text x="560" y="675" class="entity-attribute fk">Vehicle_ID (FK)</text>
+  <text x="560" y="695" class="entity-attribute fk">Driver_ID (FK)</text>
+  <text x="560" y="715" class="entity-attribute">Assignment_Start_Date</text>
+  <text x="560" y="735" class="entity-attribute">Assignment_End_Date</text>
+  
+  <!-- Maintenance -->
+  <rect x="50" y="800" width="200" height="180" class="entity" rx="5" ry="5" />
+  <text x="150" y="825" text-anchor="middle" class="entity-title">MAINTENANCE</text>
+  <line x1="50" y1="835" x2="250" y2="835" stroke="#333" stroke-width="1" />
+  <text x="60" y="855" class="entity-attribute pk">Maintenance_ID (PK)</text>
+  <text x="60" y="875" class="entity-attribute fk">Vehicle_ID (FK)</text>
+  <text x="60" y="895" class="entity-attribute">Maintenance_Date</text>
+  <text x="60" y="915" class="entity-attribute fk">Maintenance_Type_ID (FK)</text>
+  <text x="60" y="935" class="entity-attribute">Cost</text>
+  <text x="60" y="955" class="entity-attribute fk">Service_Provider_ID (FK)</text>
+  <text x="60" y="975" class="entity-attribute fk">Service_Status_ID (FK)</text>
+  
+  <!-- Maintenance_Type -->
+  <rect x="300" y="800" width="200" height="120" class="entity" rx="5" ry="5" />
+  <text x="400" y="825" text-anchor="middle" class="entity-title">MAINTENANCE_TYPE</text>
+  <line x1="300" y1="835" x2="500" y2="835" stroke="#333" stroke-width="1" />
+  <text x="310" y="855" class="entity-attribute pk">Maintenance_Type_ID (PK)</text>
+  <text x="310" y="875" class="entity-attribute">Type_Name</text>
+  <text x="310" y="895" class="entity-attribute">Description</text>
+  <text x="310" y="915" class="entity-attribute">Standard_Interval</text>
+  
+  <!-- Service_Provider -->
+  <rect x="550" y="800" width="200" height="120" class="entity" rx="5" ry="5" />
+  <text x="650" y="825" text-anchor="middle" class="entity-title">SERVICE_PROVIDER</text>
+  <line x1="550" y1="835" x2="750" y2="835" stroke="#333" stroke-width="1" />
+  <text x="560" y="855" class="entity-attribute pk">Service_Provider_ID (PK)</text>
+  <text x="560" y="875" class="entity-attribute">Provider_Name</text>
+  <text x="560" y="895" class="entity-attribute">Contact_Information</text>
+  <text x="560" y="915" class="entity-attribute">Rating</text>
+  
+  <!-- Service_Status -->
+  <rect x="800" y="800" width="200" height="100" class="entity" rx="5" ry="5" />
+  <text x="900" y="825" text-anchor="middle" class="entity-title">SERVICE_STATUS</text>
+  <line x1="800" y1="835" x2="1000" y2="835" stroke="#333" stroke-width="1" />
+  <text x="810" y="855" class="entity-attribute pk">Service_Status_ID (PK)</text>
+  <text x="810" y="875" class="entity-attribute">Status_Name</text>
+  <text x="810" y="895" class="entity-attribute">Description</text>
+  
+  <!-- Location -->
+  <rect x="300" y="1000" width="200" height="120" class="entity" rx="5" ry="5" />
+  <text x="400" y="1025" text-anchor="middle" class="entity-title">LOCATION</text>
+  <line x1="300" y1="1035" x2="500" y2="1035" stroke="#333" stroke-width="1" />
+  <text x="310" y="1055" class="entity-attribute pk">Location_ID (PK)</text>
+  <text x="310" y="1075" class="entity-attribute">Location_Name</text>
+  <text x="310" y="1095" class="entity-attribute">Latitude</text>
+  <text x="310" y="1115" class="entity-attribute">Longitude</text>
+  
+  <!-- Load -->
+  <rect x="50" y="1000" width="200" height="200" class="entity" rx="5" ry="5" />
+  <text x="150" y="1025" text-anchor="middle" class="entity-title">LOAD</text>
+  <line x1="50" y1="1035" x2="250" y2="1035" stroke="#333" stroke-width="1" />
+  <text x="60" y="1055" class="entity-attribute pk">Load_ID (PK)</text>
+  <text x="60" y="1075" class="entity-attribute fk">Vehicle_ID (FK)</text>
+  <text x="60" y="1095" class="entity-attribute fk">Source_Location_ID (FK)</text>
+  <text x="60" y="1115" class="entity-attribute fk">Destination_Location_ID (FK)</text>
+  <text x="60" y="1135" class="entity-attribute">Scheduled_Departure</text>
+  <text x="60" y="1155" class="entity-attribute">Scheduled_Arrival</text>
+  <text x="60" y="1175" class="entity-attribute">Actual_Departure</text>
+  <text x="60" y="1195" class="entity-attribute fk">Delivery_Status_ID (FK)</text>
+  
+  <!-- Customer -->
+  <rect x="550" y="1000" width="200" height="100" class="entity" rx="5" ry="5" />
+  <text x="650" y="1025" text-anchor="middle" class="entity-title">CUSTOMER</text>
+  <line x1="550" y1="1035" x2="750" y2="1035" stroke="#333" stroke-width="1" />
+  <text x="560" y="1055" class="entity-attribute pk">Customer_ID (PK)</text>
+  <text x="560" y="1075" class="entity-attribute">Customer_Name</text>
+  <text x="560" y="1095" class="entity-attribute">Customer_Contact</text>
+  
+  <!-- Cargo -->
+  <rect x="300" y="1200" width="200" height="120" class="entity" rx="5" ry="5" />
+  <text x="400" y="1225" text-anchor="middle" class="entity-title">CARGO</text>
+  <line x1="300" y1="1235" x2="500" y2="1235" stroke="#333" stroke-width="1" />
+  <text x="310" y="1255" class="entity-attribute pk">Cargo_ID (PK)</text>
+  <text x="310" y="1275" class="entity-attribute fk">Load_ID (FK)</text>
+  <text x="310" y="1295" class="entity-attribute fk">Cargo_Type_ID (FK)</text>
+  <text x="310" y="1315" class="entity-attribute">Load_Weight</text>
+  
+  <!-- Cargo_Type -->
+  <rect x="550" y="1200" width="200" height="120" class="entity" rx="5" ry="5" />
+  <text x="650" y="1225" text-anchor="middle" class="entity-title">CARGO_TYPE</text>
+  <line x1="550" y1="1235" x2="750" y2="1235" stroke="#333" stroke-width="1" />
+  <text x="560" y="1255" class="entity-attribute pk">Cargo_Type_ID (PK)</text>
+  <text x="560" y="1275" class="entity-attribute">Type_Name</text>
+  <text x="560" y="1295" class="entity-attribute">Description</text>
+  <text x="560" y="1315" class="entity-attribute">Handling_Instructions</text>
+  
+  <!-- Delivery_Status -->
+  <rect x="300" y="1400" width="200" height="100" class="entity" rx="5" ry="5" />
+  <text x="400" y="1425" text-anchor="middle" class="entity-title">DELIVERY_STATUS</text>
+  <line x1="300" y1="1435" x2="500" y2="1435" stroke="#333" stroke-width="1" />
+  <text x="310" y="1455" class="entity-attribute pk">Delivery_Status_ID (PK)</text>
+  <text x="310" y="1475" class="entity-attribute">Status_Name</text>
+  <text x="310" y="1495" class="entity-attribute">Description</text>
+  
+  <!-- Status -->
+  <rect x="50" y="1400" width="200" height="160" class="entity" rx="5" ry="5" />
+  <text x="150" y="1425" text-anchor="middle" class="entity-title">STATUS</text>
+  <line x1="50" y1="1435" x2="250" y2="1435" stroke="#333" stroke-width="1" />
+  <text x="60" y="1455" class="entity-attribute pk">Status_ID (PK)</text>
+  <text x="60" y="1475" class="entity-attribute fk">Vehicle_ID (FK)</text>
+  <text x="60" y="1495" class="entity-attribute fk">Current_Location_ID (FK)</text>
+  <text x="60" y="1515" class="entity-attribute fk">Current_Status_ID (FK)</text>
+  <text x="60" y="1535" class="entity-attribute">Last_Updated</text>
+  <text x="60" y="1555" class="entity-attribute">Fuel_Level</text>
+  
+  <!-- Vehicle_Status_Type -->
+  <rect x="550" y="1400" width="200" height="100" class="entity" rx="5" ry="5" />
+  <text x="650" y="1425" text-anchor="middle" class="entity-title">VEHICLE_STATUS_TYPE</text>
+  <line x1="550" y1="1435" x2="750" y2="1435" stroke="#333" stroke-width="1" />
+  <text x="560" y="1455" class="entity-attribute pk">Status_Type_ID (PK)</text>
+  <text x="560" y="1475" class="entity-attribute">Status_Name</text>
+  <text x="560" y="1495" class="entity-attribute">Description</text>
+  
+  <!-- Relationships -->
+  <!-- Vehicle to Vehicle_Type -->
+  <path d="M 250 110 L 350 110" class="relationship" />
+  <text x="300" y="100" text-anchor="middle" class="relationship-text">has type</text>
+  <text x="260" y="105" text-anchor="middle" class="cardinality">N</text>
+  <text x="340" y="105" text-anchor="middle" class="cardinality">1</text>
+  
+  <!-- Vehicle_Type to Fuel_Type -->
+  <path d="M 550 110 L 650 110" class="relationship" />
+  <text x="600" y="100" text-anchor="middle" class="relationship-text">uses</text>
+  <text x="560" y="105" text-anchor="middle" class="cardinality">N</text>
+  <text x="640" y="105" text-anchor="middle" class="cardinality">1</text>
+  
+  <!-- Driver to Emergency_Contact through Driver_Emergency_Contact -->
+  <path d="M 150 460 L 150 540 L 200 540" class="relationship" />
+  <path d="M 400 540 L 450 360 L 450 420" class="relationship" />
+  <text x="170" y="500" text-anchor="middle" class="relationship-text">has</text>
+  <text x="420" y="500" text-anchor="middle" class="relationship-text">is for</text>
+  
+  <!-- Driver to Address through Driver_Address -->
+  <path d="M 150 460 L 150 560 L 450 560" class="relationship" />
+  <path d="M 650 560 L 750 560 L 750 440" class="relationship" />
+  <text x="300" y="580" text-anchor="middle" class="relationship-text">lives at</text>
+  <text x="700" y="580" text-anchor="middle" class="relationship-text">houses</text>
+  
+  <!-- Driver to Qualification through Driver_Qualification -->
+  <path d="M 130 460 L 130 670 L 300 670" class="relationship" />
+  <path d="M 500 670 L 600 670 L 250 670" class="relationship" />
+  <text x="210" y="650" text-anchor="middle" class="relationship-text">has</text>
+  <text x="375" y="650" text-anchor="middle" class="relationship-text">belongs to</text>
+  
+  <!-- Vehicle to Driver through Vehicle_Driver_Assignment -->
+  <path d="M 250 140 L 400 140 L 650 680" class="relationship" />
+  <path d="M 250 380 L 400 380 L 650 700" class="relationship" />
+  <text x="500" y="660" text-anchor="middle" class="relationship-text">assigned to</text>
+  
+  <!-- Vehicle to Maintenance -->
+  <path d="M 100 230 L 100 800" class="relationship" />
+  <text x="70" y="500" text-anchor="middle" class="relationship-text">requires</text>
+  <text x="95" y="240" text-anchor="middle" class="cardinality">1</text>
+  <text x="95" y="790" text-anchor="middle" class="cardinality">N</text>
+  
+  <!-- Maintenance to Maintenance_Type -->
+  <path d="M 250 890 L 300 890" class="relationship" />
+  <text x="275" y="880" text-anchor="middle" class="relationship-text">is of</text>
+  <text x="260" y="885" text-anchor="middle" class="cardinality">N</text>
+  <text x="290" y="885" text-anchor="middle" class="cardinality">1</text>
+  
+  <!-- Maintenance to Service_Provider -->
+  <path d="M 250 930 L 550 890" class="relationship" />
+  <text x="400" y="905" text-anchor="middle" class="relationship-text">performed by</text>
+  <text x="260" y="925" text-anchor="middle" class="cardinality">N</text>
+  <text x="540" y="885" text-anchor="middle" class="cardinality">1</text>
+  
+  <!-- Maintenance to Service_Status -->
+  <path d="M 250 970 L 800 890" class="relationship" />
+  <text x="500" y="925" text-anchor="middle" class="relationship-text">has</text>
+  <text x="260" y="965" text-anchor="middle" class="cardinality">N</text>
+  <text x="790" y="885" text-anchor="middle" class="cardinality">1</text>
+  
+  <!-- Load relationships -->
+  <path d="M 150 1000 L 150 230" class="relationship" />
+  <text x="130" y="600" text-anchor="middle" class="relationship-text">carried by</text>
+  <text x="145" y="990" text-anchor="middle" class="cardinality">N</text>
+  <text x="145" y="240" text-anchor="middle" class="cardinality">1</text>
+  
+  <path d="M 250 1080 L 300 1080" class="relationship" />
+  <text x="275" y="1070" text-anchor="middle" class="relationship-text">from</text>
+  <text x="260" y="1075" text-anchor="middle" class="cardinality">N</text>
+  <text x="290" y="1075" text-anchor="middle" class="cardinality">1</text>
+  
+  <path d="M 250 1100 L 300 1100" class="relationship" />
+  <text x="275" y="1120" text-anchor="middle" class="relationship-text">to</text>
+  <text x="260" y="1095" text-anchor="middle" class="cardinality">N</text>
+  <text x="290" y="1095" text-anchor="middle" class="cardinality">1</text>
+  
+  <!-- Load to Customer (many-to-many) -->
+  <path d="M 250 1080 L 550 1080" class="relationship" />
+  <text x="400" y="1070" text-anchor="middle" class="relationship-text">for</text>
+  <text x="260" y="1075" text-anchor="middle" class="cardinality">M</text>
+  <text x="540" y="1075" text-anchor="middle" class="cardinality">N</text>
+  
+  <!-- Load to Cargo -->
+  <path d="M 150 1200 L 150 1250 L 300 1250" class="relationship" />
+  <text x="225" y="1240" text-anchor="middle" class="relationship-text">contains</text>
+  <text x="160" y="1220" text-anchor="middle" class="cardinality">1</text>
+  <text x="290" y="1245" text-anchor="middle" class="cardinality">N</text>
+  
+  <!-- Cargo to Cargo_Type -->
+  <path d="M 500 1280 L 550 1280" class="relationship" />
+  <text x="525" y="1270" text-anchor="middle" class="relationship-text">is of</text>
+  <text x="510" y="1275" text-anchor="middle" class="cardinality">N</text>
+  <text x="540" y="1275" text-anchor="middle" class="cardinality">1</text>
+  
+  <!-- Load to Delivery_Status -->
+  <path d="M 150 1200 L 150 1450 L 300 1450" class="relationship" />
+  <text x="225" y="1430" text-anchor="middle" class="relationship-text">has</text>
+  <text x="160" y="1225" text-anchor="middle" class="cardinality">N</text>
+  <text x="290" y="1445" text-anchor="middle" class="cardinality">1</text>
+  
+  <!-- Vehicle to Status -->
+  <path d="M 80 230 L 80 1400" class="relationship" />
+  <text x="60" y="800" text-anchor="middle" class="relationship-text">has</text>
+  <text x="75" y="240" text-anchor="middle" class="cardinality">1</text>
+  <text x="75" y="1390" text-anchor="middle" class="cardinality">N</text>
+  
+  <!-- Status to Location (current location) -->
+  <path d="M 250 1490 L 500 1090 L 380 1090" class="relationship" />
+  <text x="350" y="1290" text-anchor="middle" class="relationship-text">located at</text>
+  <text x="260" y="1485" text-anchor="middle" class="cardinality">N</text>
+  <text x="370" y="1085" text-anchor="middle" class="cardinality">1</text>
+  
+  <!-- Status to Vehicle_Status_Type -->
+  <path d="M 250 1510 L 550 1470" class="relationship" />
+  <text x="400" y="1485" text-anchor="middle" class="relationship-text">classified as</text>
+  <text x="260" y="1505" text-anchor="middle" class="cardinality">N</text>
+  <text x="540" y="1465" text-anchor="middle" class="cardinality">1</text>
+</svg>
