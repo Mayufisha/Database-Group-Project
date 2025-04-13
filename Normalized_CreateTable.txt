@@ -1,0 +1,266 @@
+Mysql Insert
+CREATE SCHEMA `corporate` ;
+USE corporate;
+
+-- Create Fuel_Type table
+CREATE TABLE Fuel_Type (
+    Fuel_Type_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Fuel_Name VARCHAR(50) NOT NULL,
+    Fuel_Description TEXT
+);
+
+-- Create Vehicle_Type table
+CREATE TABLE Vehicle_Type (
+    Vehicle_Type_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Make_Model VARCHAR(100) NOT NULL,
+    Default_Capacity DECIMAL(10,2),
+    Fuel_Type_ID INT,
+    FOREIGN KEY (Fuel_Type_ID) REFERENCES Fuel_Type(Fuel_Type_ID)
+);
+
+-- Create Vehicle table
+CREATE TABLE Vehicle (
+    Vehicle_ID INT PRIMARY KEY AUTO_INCREMENT,
+    License_Plate VARCHAR(20) NOT NULL UNIQUE,
+    Vehicle_Type_ID INT,
+    Year INT,
+    DateOfPurchase DATE,
+    Acquisition_Cost DECIMAL(10,2),
+    Current_Mileage INT,
+    Capacity_Weight DECIMAL(10,2),
+    FOREIGN KEY (Vehicle_Type_ID) REFERENCES Vehicle_Type(Vehicle_Type_ID)
+);
+
+-- Create Address table
+CREATE TABLE Address (
+    Address_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Street VARCHAR(100) NOT NULL,
+    City VARCHAR(50) NOT NULL,
+    State VARCHAR(50),
+    ZIP VARCHAR(20),
+    Country VARCHAR(50) NOT NULL
+);
+
+-- Create Driver table
+CREATE TABLE Driver (
+    Driver_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Driver_Name VARCHAR(100) NOT NULL,
+    Driver_ContactNumber VARCHAR(20),
+    Driver_SSN VARCHAR(20) UNIQUE,
+    Driver_License_Number VARCHAR(50) UNIQUE,
+    License_Expiration_Date DATE,
+    Employment_Start_Date DATE
+);
+
+-- Create Driver_Address table
+CREATE TABLE Driver_Address (
+    Driver_ID INT,
+    Address_ID INT,
+    PRIMARY KEY (Driver_ID, Address_ID),
+    FOREIGN KEY (Driver_ID) REFERENCES Driver(Driver_ID),
+    FOREIGN KEY (Address_ID) REFERENCES Address(Address_ID)
+);
+
+-- Create Emergency_Contact table
+CREATE TABLE Emergency_Contact (
+    Emergency_Contact_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Contact_Name VARCHAR(100) NOT NULL,
+    Contact_Relationship VARCHAR(50),
+    Contact_Phone VARCHAR(20) NOT NULL
+);
+
+-- Create Driver_Emergency_Contact table
+CREATE TABLE Driver_Emergency_Contact (
+    Driver_ID INT,
+    Emergency_Contact_ID INT,
+    PRIMARY KEY (Driver_ID, Emergency_Contact_ID),
+    FOREIGN KEY (Driver_ID) REFERENCES Driver(Driver_ID),
+    FOREIGN KEY (Emergency_Contact_ID) REFERENCES Emergency_Contact(Emergency_Contact_ID)
+);
+
+-- Create Qualification table
+CREATE TABLE Qualification (
+    Qualification_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Qualification_Type VARCHAR(100) NOT NULL,
+    Description TEXT,
+    Expiration_Date DATE,
+    Issuing_Authority VARCHAR(100)
+);
+
+-- Create Driver_Qualification table
+CREATE TABLE Driver_Qualification (
+    Driver_ID INT,
+    Qualification_ID INT,
+    PRIMARY KEY (Driver_ID, Qualification_ID),
+    FOREIGN KEY (Driver_ID) REFERENCES Driver(Driver_ID),
+    FOREIGN KEY (Qualification_ID) REFERENCES Qualification(Qualification_ID)
+);
+
+-- Create Vehicle_Driver_Assignment table
+CREATE TABLE Vehicle_Driver_Assignment (
+    Assignment_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Vehicle_ID INT NOT NULL,
+    Driver_ID INT NOT NULL,
+    Assignment_Start_Date DATE NOT NULL,
+    Assignment_End_Date DATE,
+    Is_Current BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (Vehicle_ID) REFERENCES Vehicle(Vehicle_ID),
+    FOREIGN KEY (Driver_ID) REFERENCES Driver(Driver_ID)
+);
+
+-- Create Service_Provider table
+CREATE TABLE Service_Provider (
+    Service_Provider_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Provider_Name VARCHAR(100) NOT NULL,
+    Contact_Information VARCHAR(100),
+    Rating DECIMAL(3,2)
+);
+
+-- Create Service_Provider_Address table
+CREATE TABLE Service_Provider_Address (
+    Service_Provider_ID INT,
+    Address_ID INT,
+    PRIMARY KEY (Service_Provider_ID, Address_ID),
+    FOREIGN KEY (Service_Provider_ID) REFERENCES Service_Provider(Service_Provider_ID),
+    FOREIGN KEY (Address_ID) REFERENCES Address(Address_ID)
+);
+
+-- Create Service_Status table
+CREATE TABLE Service_Status (
+    Service_Status_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Status_Name VARCHAR(50) NOT NULL,
+    Description TEXT
+);
+
+-- Create Maintenance_Type table
+CREATE TABLE Maintenance_Type (
+    Maintenance_Type_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Type_Name VARCHAR(50) NOT NULL,
+    Description TEXT,
+    Standard_Interval INT
+);
+
+-- Create Maintenance table
+CREATE TABLE Maintenance (
+    Maintenance_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Vehicle_ID INT NOT NULL,
+    Maintenance_Date DATE NOT NULL,
+    Maintenance_Type_ID INT,
+    Cost DECIMAL(10,2),
+    Service_Provider_ID INT,
+    Description TEXT,
+    Next_Service_Date DATE,
+    Service_Status_ID INT,
+    FOREIGN KEY (Vehicle_ID) REFERENCES Vehicle(Vehicle_ID),
+    FOREIGN KEY (Maintenance_Type_ID) REFERENCES Maintenance_Type(Maintenance_Type_ID),
+    FOREIGN KEY (Service_Provider_ID) REFERENCES Service_Provider(Service_Provider_ID),
+    FOREIGN KEY (Service_Status_ID) REFERENCES Service_Status(Service_Status_ID)
+);
+
+-- Create Location table
+CREATE TABLE Location (
+    Location_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Location_Name VARCHAR(100) NOT NULL,
+    Latitude DECIMAL(10,8),
+    Longitude DECIMAL(11,8)
+);
+
+-- Create Location_Address table
+CREATE TABLE Location_Address (
+    Location_ID INT,
+    Address_ID INT,
+    PRIMARY KEY (Location_ID, Address_ID),
+    FOREIGN KEY (Location_ID) REFERENCES Location(Location_ID),
+    FOREIGN KEY (Address_ID) REFERENCES Address(Address_ID)
+);
+
+-- Create Delivery_Status table
+CREATE TABLE Delivery_Status (
+    Delivery_Status_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Status_Name VARCHAR(50) NOT NULL,
+    Description TEXT
+);
+
+-- Create Customer table
+CREATE TABLE Customer (
+    Customer_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Customer_Name VARCHAR(100) NOT NULL,
+    Customer_Contact VARCHAR(100)
+);
+
+-- Create Customer_Address table
+CREATE TABLE Customer_Address (
+    Customer_ID INT,
+    Address_ID INT,
+    PRIMARY KEY (Customer_ID, Address_ID),
+    FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID),
+    FOREIGN KEY (Address_ID) REFERENCES Address(Address_ID)
+);
+
+-- Create Load table
+CREATE TABLE Vehicle_Load (
+    Load_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Vehicle_ID INT,
+    Source_Location_ID INT,
+    Destination_Location_ID INT,
+    Scheduled_Departure DATETIME,
+    Scheduled_Arrival DATETIME,
+    Actual_Departure DATETIME,
+    Actual_Arrival DATETIME,
+    Delivery_Status_ID INT,
+    Special_Instructions TEXT,
+    FOREIGN KEY (Vehicle_ID) REFERENCES Vehicle(Vehicle_ID),
+    FOREIGN KEY (Source_Location_ID) REFERENCES Location(Location_ID),
+    FOREIGN KEY (Destination_Location_ID) REFERENCES Location(Location_ID),
+    FOREIGN KEY (Delivery_Status_ID) REFERENCES Delivery_Status(Delivery_Status_ID)
+);
+
+-- Create Load_Customer table
+CREATE TABLE Load_Customer (
+    Load_ID INT,
+    Customer_ID INT,
+    PRIMARY KEY (Load_ID, Customer_ID),
+    FOREIGN KEY (Load_ID) REFERENCES Vehicle_Load(Load_ID),
+    FOREIGN KEY (Customer_ID) REFERENCES Customer(Customer_ID)
+);
+
+-- Create Cargo_Type table
+CREATE TABLE Cargo_Type (
+    Cargo_Type_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Type_Name VARCHAR(50) NOT NULL,
+    Description TEXT,
+    Handling_Instructions TEXT
+);
+
+-- Create Cargo table
+CREATE TABLE Cargo (
+    Cargo_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Load_ID INT,
+    Cargo_Type_ID INT,
+    Load_Weight DECIMAL(10,2),
+    FOREIGN KEY (Load_ID) REFERENCES Vehicle_Load(Load_ID),
+    FOREIGN KEY (Cargo_Type_ID) REFERENCES Cargo_Type(Cargo_Type_ID)
+);
+
+-- Create Vehicle_Status_Type table
+CREATE TABLE Vehicle_Status_Type (
+    Status_Type_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Status_Name VARCHAR(50) NOT NULL,
+    Description TEXT
+);
+
+-- Create Status table
+CREATE TABLE Status (
+    Status_ID INT PRIMARY KEY AUTO_INCREMENT,
+    Vehicle_ID INT NOT NULL,
+    Current_Location_ID INT,
+    Current_Status_ID INT,
+    Last_Updated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    Fuel_Level DECIMAL(5,2),
+    Estimated_Time_To_Destination TIME,
+    Next_Scheduled_Stop_ID INT,
+    FOREIGN KEY (Vehicle_ID) REFERENCES Vehicle(Vehicle_ID),
+    FOREIGN KEY (Current_Location_ID) REFERENCES Location(Location_ID),
+    FOREIGN KEY (Current_Status_ID) REFERENCES Vehicle_Status_Type(Status_Type_ID),
+    FOREIGN KEY (Next_Scheduled_Stop_ID) REFERENCES Location(Location_ID)
+);

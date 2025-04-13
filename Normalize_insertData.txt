@@ -1,0 +1,328 @@
+use corporate;
+
+-- Sample data for Fuel_Type table
+INSERT INTO Fuel_Type (Fuel_Type_ID, Fuel_Name, Fuel_Description) VALUES
+(1, 'Diesel', 'Standard diesel fuel for heavy trucks'),
+(2, 'Biodiesel', 'Renewable diesel alternative'),
+(3, 'CNG', 'Compressed Natural Gas for cleaner emissions'),
+(4, 'LNG', 'Liquefied Natural Gas for long-haul trucks'),
+(5, 'Diesel-Electric Hybrid', 'Combination of diesel and electric power');
+
+-- Sample data for Vehicle_Type table
+INSERT INTO Vehicle_Type (Vehicle_Type_ID, Make_Model, Default_Capacity, Fuel_Type_ID) VALUES
+(1, 'Ford F-350 Super Duty', 7000.00, 1),
+(2, 'Kenworth T680', 35000.00, 1),
+(3, 'Peterbilt 389', 40000.00, 1),
+(4, 'Mercedes Sprinter', 3500.00, 1),
+(5, 'Freightliner Cascadia', 45000.00, 1),
+(6, 'Volvo VNL 860', 42000.00, 1),
+(7, 'Mack Anthem', 38000.00, 1),
+(8, 'International LT Series', 36000.00, 1),
+(9, 'Western Star 5700', 39000.00, 1);
+
+-- Sample data for Vehicle table
+INSERT INTO Vehicle (Vehicle_ID, License_Plate, Vehicle_Type_ID, Year, DateOfPurchase, Acquisition_Cost, Current_Mileage, Capacity_Weight) VALUES
+(1, 'ABC-1234', 2, 2022, '2022-03-15', 125000.00, 35000, 34500.00),
+(2, 'XYZ-5678', 3, 2021, '2021-06-10', 130000.00, 50000, 39500.00),
+(3, 'DEF-9012', 5, 2023, '2023-01-05', 145000.00, 15000, 44000.00),
+(4, 'GHI-3456', 4, 2022, '2022-09-20', 75000.00, 25000, 3400.00),
+(5, 'JKL-7890', 1, 2021, '2021-11-30', 65000.00, 40000, 6950.00),
+(6, 'MNO-1234', 6, 2023, '2023-02-18', 155000.00, 10000, 41750.00),
+(7, 'PQR-5678', 7, 2022, '2022-04-25', 135000.00, 30000, 37800.00),
+(8, 'STU-9012', 8, 2023, '2023-03-10', 140000.00, 8000, 35850.00),
+(9, 'VWX-3456', 9, 2021, '2021-10-15', 145000.00, 45000, 38400.00),
+(10, 'YZA-7890', 2, 2020, '2020-08-22', 115000.00, 85000, 34000.00);
+
+-- Sample data for Address table
+INSERT INTO Address (Address_ID, Street, City, State, ZIP, Country) VALUES
+(1, '123 Main St', 'Seattle', 'WA', '98101', 'USA'),
+(2, '456 Oak Ave', 'Portland', 'OR', '97201', 'USA'),
+(3, '789 Pine Blvd', 'San Francisco', 'CA', '94105', 'USA'),
+(4, '101 Maple Dr', 'Los Angeles', 'CA', '90001', 'USA'),
+(5, '202 Elm St', 'Chicago', 'IL', '60601', 'USA'),
+(6, '303 Birch Ln', 'New York', 'NY', '10001', 'USA'),
+(7, '404 Cedar Rd', 'Miami', 'FL', '33101', 'USA'),
+(8, '505 Spruce Way', 'Denver', 'CO', '80201', 'USA'),
+(9, '606 Fir Ave', 'Phoenix', 'AZ', '85001', 'USA'),
+(10, '707 Redwood Blvd', 'Atlanta', 'GA', '30301', 'USA'),
+(11, '808 Sequoia St', 'Dallas', 'TX', '75201', 'USA'),
+(12, '909 Willow Dr', 'Houston', 'TX', '77001', 'USA'),
+(13, '1010 Aspen Ln', 'Minneapolis', 'MN', '55401', 'USA'),
+(14, '1111 Juniper Rd', 'Boston', 'MA', '02101', 'USA'),
+(15, '1212 Sycamore Ave', 'Philadelphia', 'PA', '19101', 'USA');
+
+-- Sample data for Driver table
+INSERT INTO Driver (Driver_ID, Driver_Name, Driver_ContactNumber, Driver_SSN, Driver_License_Number, License_Expiration_Date, Employment_Start_Date) VALUES
+(1, 'John Smith', '555-123-4567', '123-45-6789', 'DL123456', '2025-06-30', '2020-01-15'),
+(2, 'Maria Garcia', '555-234-5678', '234-56-7890', 'DL234567', '2024-08-15', '2019-03-22'),
+(3, 'Robert Johnson', '555-345-6789', '345-67-8901', 'DL345678', '2026-02-28', '2021-05-10'),
+(4, 'Linda Williams', '555-456-7890', '456-78-9012', 'DL456789', '2025-11-20', '2018-09-05'),
+(5, 'Michael Brown', '555-567-8901', '567-89-0123', 'DL567890', '2024-04-15', '2022-02-18'),
+(6, 'Jennifer Davis', '555-678-9012', '678-90-1234', 'DL678901', '2026-07-31', '2020-11-12'),
+(7, 'David Miller', '555-789-0123', '789-01-2345', 'DL789012', '2025-09-30', '2021-08-03'),
+(8, 'Patricia Wilson', '555-890-1234', '890-12-3456', 'DL890123', '2024-12-31', '2019-06-25'),
+(9, 'James Moore', '555-901-2345', '901-23-4567', 'DL901234', '2026-05-15', '2022-04-11'),
+(10, 'Jessica Taylor', '555-012-3456', '012-34-5678', 'DL012345', '2025-03-22', '2020-07-20');
+
+-- Sample data for Driver_Address table
+INSERT INTO Driver_Address (Driver_ID, Address_ID) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10);
+
+-- Sample data for Emergency_Contact table
+INSERT INTO Emergency_Contact (Emergency_Contact_ID, Contact_Name, Contact_Relationship, Contact_Phone) VALUES
+(1, 'Jane Smith', 'Spouse', '555-111-2222'),
+(2, 'Carlos Garcia', 'Brother', '555-222-3333'),
+(3, 'Sarah Johnson', 'Spouse', '555-333-4444'),
+(4, 'Mark Williams', 'Husband', '555-444-5555'),
+(5, 'Emily Brown', 'Spouse', '555-555-6666'),
+(6, 'Thomas Davis', 'Husband', '555-666-7777'),
+(7, 'Karen Miller', 'Spouse', '555-777-8888'),
+(8, 'George Wilson', 'Husband', '555-888-9999'),
+(9, 'Elizabeth Moore', 'Spouse', '555-999-0000'),
+(10, 'Daniel Taylor', 'Husband', '555-000-1111');
+
+-- Sample data for Driver_Emergency_Contact table
+INSERT INTO Driver_Emergency_Contact (Driver_ID, Emergency_Contact_ID) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10);
+
+-- Sample data for Qualification table
+INSERT INTO Qualification (Qualification_ID, Qualification_Type, Description, Expiration_Date, Issuing_Authority) VALUES
+(1, 'CDL Class A', 'Commercial Driver License Class A', '2025-06-30', 'State DMV'),
+(2, 'CDL Class B', 'Commercial Driver License Class B', '2024-08-15', 'State DMV'),
+(3, 'Hazmat Endorsement', 'Hazardous Materials Transport Certification', '2026-02-28', 'DOT'),
+(4, 'Tanker Endorsement', 'Tanker Vehicle Operation Certification', '2025-11-20', 'DOT'),
+(5, 'Doubles/Triples Endorsement', 'Multiple Trailer Operation Certification', '2024-04-15', 'DOT'),
+(6, 'First Aid Training', 'Emergency Response and First Aid', '2023-12-31', 'Red Cross'),
+(7, 'Defensive Driving', 'Advanced Safety and Defensive Driving', '2024-10-15', 'National Safety Council'),
+(8, 'Forklift Operator', 'Forklift Operation Certification', '2023-09-30', 'OSHA');
+
+-- Sample data for Driver_Qualification table
+INSERT INTO Driver_Qualification (Driver_ID, Qualification_ID) VALUES
+(1, 1),
+(1, 3),
+(2, 1),
+(2, 4),
+(3, 1),
+(3, 5),
+(4, 2),
+(4, 6),
+(5, 1),
+(5, 7),
+(6, 2),
+(7, 1),
+(7, 3),
+(8, 2),
+(9, 1),
+(9, 8),
+(10, 1),
+(10, 4);
+
+-- Sample data for Vehicle_Driver_Assignment table
+INSERT INTO Vehicle_Driver_Assignment (Assignment_ID, Vehicle_ID, Driver_ID, Assignment_Start_Date, Assignment_End_Date, Is_Current) VALUES
+(1, 1, 1, '2022-04-01', NULL, 1),
+(2, 2, 2, '2021-07-15', NULL, 1),
+(3, 3, 3, '2023-02-10', NULL, 1),
+(4, 4, 4, '2022-10-05', NULL, 1),
+(5, 5, 5, '2022-01-10', NULL, 1),
+(6, 6, 6, '2023-03-20', NULL, 1),
+(7, 7, 7, '2022-05-15', NULL, 1),
+(8, 8, 8, '2023-04-01', NULL, 1),
+(9, 9, 9, '2021-11-20', NULL, 1),
+(10, 10, 10, '2020-09-15', '2023-01-15', 0),
+(11, 10, 1, '2023-01-16', NULL, 1);
+
+-- Sample data for Maintenance_Type table
+INSERT INTO Maintenance_Type (Maintenance_Type_ID, Type_Name, Description, Standard_Interval) VALUES
+(1, 'Oil Change', 'Regular oil and filter change', 10000),
+(2, 'Brake Service', 'Inspection and replacement of brake components', 30000),
+(3, 'Tire Rotation', 'Rotation of tires for even wear', 10000),
+(4, 'Major Engine Service', 'Comprehensive engine maintenance', 100000),
+(5, 'Transmission Service', 'Transmission fluid change and inspection', 50000),
+(6, 'Battery Replacement', 'Replacement of vehicle battery', 40000),
+(7, 'Air Filter Replacement', 'Replacement of engine air filter', 20000),
+(8, 'Cooling System Service', 'Coolant flush and system inspection', 40000);
+
+-- Sample data for Service_Provider table
+INSERT INTO Service_Provider (Service_Provider_ID, Provider_Name, Contact_Information, Rating) VALUES
+(1, 'Express Truck Service', 'contact@expresstruckservice.com', 4.7),
+(2, 'Fleet Maintenance Pro', 'service@fleetmaintenancepro.com', 4.5),
+(3, 'Reliable Auto Care', 'info@reliableautocare.com', 4.2),
+(4, 'Precision Vehicle Service', 'service@precisionvehicle.com', 4.8),
+(5, 'TruckFix Solutions', 'support@truckfixsolutions.com', 4.6);
+
+-- Sample data for Service_Provider_Address table
+INSERT INTO Service_Provider_Address (Service_Provider_ID, Address_ID) VALUES
+(1, 11),
+(2, 12),
+(3, 13),
+(4, 14),
+(5, 15);
+
+-- Sample data for Service_Status table
+INSERT INTO Service_Status (Service_Status_ID, Status_Name, Description) VALUES
+(1, 'Scheduled', 'Maintenance has been scheduled but not started'),
+(2, 'In Progress', 'Maintenance work is currently being performed'),
+(3, 'Completed', 'Maintenance has been completed successfully'),
+(4, 'Delayed', 'Maintenance has been postponed'),
+(5, 'Cancelled', 'Maintenance has been cancelled');
+
+-- Sample data for Maintenance table
+INSERT INTO Maintenance (Maintenance_ID, Vehicle_ID, Maintenance_Date, Maintenance_Type_ID, Cost, Service_Provider_ID, Description, Next_Service_Date, Service_Status_ID) VALUES
+(1, 1, '2023-05-15', 1, 350.00, 1, 'Regular oil change and inspection', '2023-08-15', 3),
+(2, 2, '2023-04-20', 2, 850.00, 2, 'Brake pad replacement front and rear', '2024-04-20', 3),
+(3, 3, '2023-06-10', 1, 375.00, 1, 'Oil change with synthetic oil', '2023-09-10', 3),
+(4, 4, '2023-05-05', 3, 150.00, 3, 'Tire rotation and balance', '2023-08-05', 3),
+(5, 5, '2023-06-25', 7, 75.00, 4, 'Air filter replacement', '2023-10-25', 3),
+(6, 6, '2023-07-05', 1, 325.00, 5, 'Regular oil change', '2023-10-05', 3),
+(7, 7, '2023-07-12', 8, 225.00, 2, 'Cooling system flush', '2024-07-12', 3),
+(8, 8, '2023-07-15', 1, 400.00, 3, 'Oil change for electric hybrid', '2023-10-15', 3),
+(9, 9, '2023-07-20', 5, 950.00, 4, 'Transmission fluid change', '2024-07-20', 3),
+(10, 10, '2023-08-01', 4, 1500.00, 1, 'Major engine service and tune-up', '2024-08-01', 3),
+(11, 1, '2023-08-15', 3, 175.00, 5, 'Tire rotation and alignment check', '2023-11-15', 3),
+(12, 2, '2023-08-25', 6, 225.00, 2, 'Battery replacement', '2025-08-25', 3),
+(13, 3, '2023-09-10', 3, 160.00, 3, 'Tire rotation and pressure check', '2023-12-10', 2),
+(14, 4, '2023-09-15', 1, 340.00, 4, 'Oil change and filter replacement', '2023-12-15', 1);
+
+-- Sample data for Location table
+INSERT INTO Location (Location_ID, Location_Name, Latitude, Longitude) VALUES
+(1, 'Seattle Warehouse', 47.6062, -122.3321),
+(2, 'Portland Distribution Center', 45.5051, -122.6750),
+(3, 'San Francisco Depot', 37.7749, -122.4194),
+(4, 'Los Angeles Terminal', 34.0522, -118.2437),
+(5, 'Chicago Hub', 41.8781, -87.6298),
+(6, 'New York Distribution', 40.7128, -74.0060),
+(7, 'Miami Port', 25.7617, -80.1918),
+(8, 'Dallas Logistics Center', 32.7767, -96.7970);
+
+-- Sample data for Location_Address table
+INSERT INTO Location_Address (Location_ID, Address_ID) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 11);
+
+-- Sample data for Delivery_Status table
+INSERT INTO Delivery_Status (Delivery_Status_ID, Status_Name, Description) VALUES
+(1, 'Scheduled', 'Delivery has been scheduled but not started'),
+(2, 'In Transit', 'Cargo is currently in transit'),
+(3, 'Delivered', 'Cargo has been successfully delivered'),
+(4, 'Delayed', 'Delivery has been delayed'),
+(5, 'Cancelled', 'Delivery has been cancelled');
+
+-- Sample data for Customer table
+INSERT INTO Customer (Customer_ID, Customer_Name, Customer_Contact) VALUES
+(1, 'Acme Corporation', 'orders@acmecorp.com'),
+(2, 'Global Industries', 'logistics@globalind.com'),
+(3, 'Tech Innovations', 'shipping@techinnovations.com'),
+(4, 'Farm Fresh Produce', 'dispatch@farmfresh.com'),
+(5, 'Construction Supplies Inc.', 'orders@constructionsupplies.com'),
+(6, 'Medical Equipment Co.', 'shipping@medequipco.com'),
+(7, 'Retail Chain Distributors', 'logistics@retailchain.com'),
+(8, 'Auto Parts Wholesalers', 'orders@autopartswholesale.com');
+
+-- Sample data for Customer_Address table
+INSERT INTO Customer_Address (Customer_ID, Address_ID) VALUES
+(1, 8),
+(2, 9),
+(3, 10),
+(4, 12),
+(5, 13),
+(6, 14),
+(7, 15),
+(8, 7);
+
+-- Sample data for Load table
+INSERT INTO Vehicle_Load (Load_ID, Vehicle_ID, Source_Location_ID, Destination_Location_ID, 
+                 Scheduled_Departure, Scheduled_Arrival, Actual_Departure, Actual_Arrival, 
+                 Delivery_Status_ID, Special_Instructions) VALUES
+(1, 1, 1, 5, '2023-07-01 08:00:00', '2023-07-03 16:00:00', '2023-07-01 08:15:00', '2023-07-03 15:30:00', 3, 'Handle with care, fragile items'),
+(2, 2, 2, 6, '2023-07-05 09:00:00', '2023-07-07 14:00:00', '2023-07-05 09:30:00', '2023-07-07 16:45:00', 3, 'Temperature controlled cargo'),
+(3, 3, 3, 7, '2023-07-10 07:00:00', '2023-07-12 13:00:00', '2023-07-10 07:15:00', '2023-07-12 15:20:00', 3, 'High-value goods, extra security'),
+(4, 4, 4, 8, '2023-07-15 10:00:00', '2023-07-17 11:00:00', '2023-07-15 10:20:00', '2023-07-17 12:30:00', 3, 'Oversized load, special permits required'),
+(5, 5, 5, 1, '2023-07-20 08:00:00', '2023-07-21 17:00:00', '2023-07-20 08:10:00', '2023-07-21 16:45:00', 3, 'Rush delivery, high priority'),
+(6, 6, 6, 2, '2023-07-25 09:00:00', '2023-07-27 15:00:00', '2023-07-25 09:05:00', NULL, 2, 'Standard delivery procedures'),
+(7, 7, 7, 3, '2023-07-30 11:00:00', '2023-08-01 18:00:00', '2023-07-30 11:30:00', NULL, 2, 'Perishable goods, maintain refrigeration'),
+(8, 8, 8, 4, '2023-08-05 07:00:00', '2023-08-06 16:00:00', NULL, NULL, 1, 'Delivery requires lift gate'),
+(9, 9, 1, 6, '2023-08-10 08:00:00', '2023-08-12 14:00:00', NULL, NULL, 1, 'Call recipient 1 hour before delivery'),
+(10, 10, 2, 7, '2023-08-15 10:00:00', '2023-08-17 13:00:00', NULL, NULL, 1, 'Weekend delivery, special access instructions');
+
+-- Sample data for Load_Customer table
+INSERT INTO Load_Customer (Load_ID, Customer_ID) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 1),
+(10, 3);
+
+-- Sample data for Cargo_Type table
+INSERT INTO Cargo_Type (Cargo_Type_ID, Type_Name, Description, Handling_Instructions) VALUES
+(1, 'General Freight', 'Standard packaged goods', 'Standard handling procedures'),
+(2, 'Refrigerated', 'Temperature-controlled goods', 'Maintain temperature between 35-40°F'),
+(3, 'Hazardous Materials', 'Dangerous goods requiring special handling', 'Follow all HAZMAT protocols, use proper PPE'),
+(4, 'Oversized', 'Large or bulky items', 'Use proper lifting equipment, secure carefully'),
+(5, 'Fragile', 'Easily damaged items', 'Handle with care, do not stack heavy items on top'),
+(6, 'Electronics', 'Electronic equipment and components', 'Protect from moisture and static'),
+(7, 'Construction Materials', 'Building supplies and materials', 'Proper securing and weight distribution'),
+(8, 'Medical Supplies', 'Healthcare-related goods', 'Maintain cleanliness, handle with care');
+
+-- Sample data for Cargo table
+INSERT INTO Cargo (Cargo_ID, Load_ID, Cargo_Type_ID, Load_Weight) VALUES
+(1, 1, 5, 15000.00),
+(2, 2, 2, 18000.00),
+(3, 3, 6, 12000.00),
+(4, 4, 4, 30000.00),
+(5, 5, 1, 22000.00),
+(6, 6, 7, 25000.00),
+(7, 7, 2, 17000.00),
+(8, 8, 8, 8000.00),
+(9, 9, 1, 20000.00),
+(10, 10, 3, 15000.00);
+
+-- Sample data for Vehicle_Status_Type table
+INSERT INTO Vehicle_Status_Type (Status_Type_ID, Status_Name, Description) VALUES
+(1, 'Active - In Service', 'Vehicle is currently in active service'),
+(2, 'Active - In Transit', 'Vehicle is currently on the road'),
+(3, 'Inactive - Maintenance', 'Vehicle is temporarily out of service for maintenance'),
+(4, 'Inactive - Repair', 'Vehicle is out of service for repairs'),
+(5, 'Inactive - Available', 'Vehicle is available but not currently assigned'),
+(6, 'Retired', 'Vehicle is permanently out of service');
+
+-- Sample data for Status table
+INSERT INTO Status (Status_ID, Vehicle_ID, Current_Location_ID, Current_Status_ID, Last_Updated, Fuel_Level, Estimated_Time_To_Destination, Next_Scheduled_Stop_ID) VALUES
+(1, 1, 5, 1, '2023-07-03 16:00:00', 75.5, '00:00:00', NULL),
+(2, 2, 6, 1, '2023-07-07 17:00:00', 80.0, '00:00:00', NULL),
+(3, 3, 7, 1, '2023-07-12 16:00:00', 65.5, '00:00:00', NULL),
+(4, 4, 8, 1, '2023-07-17 13:00:00', 70.0, '00:00:00', NULL),
+(5, 5, 1, 1, '2023-07-21 17:00:00', 85.5, '00:00:00', NULL),
+(6, 6, 3, 2, '2023-07-26 10:00:00', 60.0, '08:00:00', 2),
+(7, 7, 4, 2, '2023-07-31 14:00:00', 45.5, '12:00:00', 3),
+(8, 8, 8, 5, '2023-08-01 09:00:00', 100.0, '00:00:00', 4),
+(9, 9, 1, 5, '2023-08-05 11:00:00', 95.5, '00:00:00', 6),
+(10, 10, 2, 3, '2023-08-02 13:00:00', 0.0, '00:00:00', NULL);
