@@ -18,7 +18,7 @@ INSERT INTO Vehicle_Type (Vehicle_Type_ID, Make_Model, Default_Capacity, Fuel_Ty
 (6, 'Volvo VNL 860', 42000.00, 1),
 (7, 'Mack Anthem', 38000.00, 1),
 (8, 'International LT Series', 36000.00, 1),
-(9, 'Western Star 5700', 39000.00, 1);
+(9, 'Western Star 5700', 39000.00, 1); l 
 
 -- Sample data for Vehicle table
 INSERT INTO Vehicle (Vehicle_ID, License_Plate, Vehicle_Type_ID, Year, DateOfPurchase, Acquisition_Cost, Current_Mileage, Capacity_Weight) VALUES
