@@ -80,3 +80,20 @@ def add_edit_form(table, columns, tree, data=None):
             messagebox.showerror("Error", str(e))
 
     tk.Button(form, text="Save", command=save).pack(pady=10)
+
+def delete_selected(table, tree):
+    selected = tree.selection()
+    if not selected:
+        messagebox.showinfo("Delete", "Select a record first.")
+        return
+    item = tree.item(selected[0])
+    record_id = item["values"][0]
+    try:
+        conn = connect_db()
+        cursor = conn.cursor()
+        cursor.execute(f"DELETE FROM {table} WHERE {tree['columns'][0]}=%s", (record_id,))
+        conn.commit()
+        conn.close()
+        fetch_data(tree, table)
+    except Exception as e:
+        messagebox.showerror("Delete Error", str(e))
