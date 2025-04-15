@@ -9,3 +9,21 @@ def connect_db():
         password="M(;+O4+>L{PM~c;tCmd)XEt]9?y9sAe{",
         database="corporate"
     )
+
+def fetch_data(tree, table):
+    try:
+        conn = connect_db()
+        cursor = conn.cursor()
+        cursor.execute(f"SHOW COLUMNS FROM {table}")
+        cols = [col[0] for col in cursor.fetchall()]
+        if tree:
+            cursor.execute(f"SELECT * FROM {table}")
+            rows = cursor.fetchall()
+            tree.delete(*tree.get_children())
+            for row in rows:
+                tree.insert("", tk.END, values=row)
+        conn.close()
+        return cols
+    except Exception as e:
+        messagebox.showerror("DB Error", str(e))
+        return []
