@@ -40,3 +40,43 @@ def search_data(tree, table, column, value):
         conn.close()
     except Exception as e:
         messagebox.showerror("Search Error", str(e))
+
+def add_edit_form(table, columns, tree, data=None):
+    form = tk.Toplevel()
+    form.title("Edit" if data else "Add")
+    form.geometry("400x400")
+    entries = []
+
+    editable_fields = columns
+    if table in ["Vehicle_Type", "Vehicle_Status_Type", "Fuel_Type"]:
+        editable_fields = columns[1:3] if len(columns) >= 3 else columns[1:]
+
+    for idx, col in enumerate(columns):
+        if col not in editable_fields and not data:
+            continue
+        tk.Label(form, text=col).pack()
+        var = tk.StringVar(value=data[idx] if data else "")
+        ent = tk.Entry(form, textvariable=var)
+        ent.pack()
+        entries.append((col, var))
+
+    def save():
+        values = [v.get() for _, v in entries]
+        try:
+            conn = connect_db()
+            cursor = conn.cursor()
+            if data:
+                set_clause = ", ".join([f"{col}=%s" for col, _ in entries[1:]])
+                cursor.execute(f"UPDATE {table} SET {set_clause} WHERE {entries[0][0]}=%s", values[1:] + [values[0]])
+            else:
+                col_clause = ", ".join([col for col, _ in entries])
+                q_clause = ", ".join(["%s"] * len(entries))
+                cursor.execute(f"INSERT INTO {table} ({col_clause}) VALUES ({q_clause})", values)
+            conn.commit()
+            conn.close()
+            fetch_data(tree, table)
+            form.destroy()
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+
+    tk.Button(form, text="Save", command=save).pack(pady=10)
