@@ -119,3 +119,19 @@ tables = {
     "Vehicle_Load": "Vehicle Load",
     "Fuel_Type": "Fuel Types"
 }
+
+for table, label in tables.items():
+    tab = ttk.Frame(sub_notebook)
+    sub_notebook.add(tab, text=label)
+
+    search_frame = ttk.Frame(tab)
+    search_frame.pack(fill="x", padx=10, pady=5)
+
+    tk.Label(search_frame, text=f"Search {label} by:").pack(side="left")
+    cols = fetch_data(None, table)
+    search_option = ttk.Combobox(search_frame, values=cols, state="readonly")
+    search_option.set(cols[0])
+    search_option.pack(side="left", padx=5)
+
+    search_entry = tk.Entry(search_frame)
+    search_entry.pack(side="left", padx=5)
