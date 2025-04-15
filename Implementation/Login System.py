@@ -1,6 +1,6 @@
 import tkinter as tk
 from tkinter import messagebox
-import subprocess
+
 
 # Setup main window
 root = tk.Tk()
@@ -10,6 +10,17 @@ root.configure(bg='#333333')
 
 # Create frame
 frame = tk.Frame(bg='#333333')
+
+def login():
+    username = username_entry.get()
+    password = password_entry.get()
+
+    if username == "admin" and password == "12345":
+        messagebox.showinfo("Login Success", "Welcome, Admin!")
+    elif username == "local" and password == "12345":
+        messagebox.showinfo("Login Success", "Welcome, Local User!")
+    else:
+        messagebox.showerror("Login Failed", "Invalid username or password")
 
 # Creating widgets
 login_label = tk.Label(frame, text="Login", bg='#333333', fg="#ebde34", font=("Arial", 30))
