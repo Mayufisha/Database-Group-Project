@@ -178,3 +178,16 @@ for table, label in tables.items():
 
     ttk.Button(action_frame, text="Add", command=lambda t=tree, tbl=table, c=cols: add_edit_form(tbl, c, t)).pack(
         side="left", padx=5)
+
+    def edit_wrapper(t=tree, tbl=table, c=cols):
+        selected = t.selection()
+        if not selected:
+            messagebox.showinfo("Edit", "Select a record first.")
+            return
+        data = t.item(selected[0], "values")
+        add_edit_form(tbl, c, t, data)
+
+    ttk.Button(action_frame, text="Edit", command=edit_wrapper).pack(side="left", padx=5)
+    ttk.Button(action_frame, text="Delete", command=lambda t=tree, tbl=table: delete_selected(tbl, t)).pack(side="left", padx=5)
+
+root.mainloop()
