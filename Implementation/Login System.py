@@ -1,5 +1,7 @@
+import subprocess
 import tkinter as tk
 from tkinter import messagebox
+import subprocess
 
 
 # Setup main window
@@ -17,6 +19,8 @@ def login():
 
     if username == "admin" and password == "12345":
         messagebox.showinfo("Login Success", "Welcome, Admin!")
+        root.destroy()
+        subprocess.Popen(["python", "Admin-User_Portal.py"])
     elif username == "local" and password == "12345":
         messagebox.showinfo("Login Success", "Welcome, Local User!")
     else:
