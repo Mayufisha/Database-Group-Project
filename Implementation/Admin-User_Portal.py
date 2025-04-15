@@ -97,3 +97,25 @@ def delete_selected(table, tree):
         fetch_data(tree, table)
     except Exception as e:
         messagebox.showerror("Delete Error", str(e))
+
+# === UI ===
+root = tk.Tk()
+root.title("Admins Portal")
+root.geometry("1200x800")
+
+notebook = ttk.Notebook(root)
+notebook.pack(expand=True, fill="both")
+
+vehicle_mgmt_tab = ttk.Frame(notebook)
+notebook.add(vehicle_mgmt_tab, text="Vehicle Management")
+
+sub_notebook = ttk.Notebook(vehicle_mgmt_tab)
+sub_notebook.pack(expand=True, fill="both")
+
+tables = {
+    "Vehicle": "Vehicles",
+    "Vehicle_Type": "Vehicle Types",
+    "Vehicle_Status_Type": "Vehicle Status Types",
+    "Vehicle_Load": "Vehicle Load",
+    "Fuel_Type": "Fuel Types"
+}
