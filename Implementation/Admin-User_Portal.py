@@ -47,9 +47,20 @@ def add_edit_form(table, columns, tree, data=None):
     form.geometry("400x400")
     entries = []
 
+
+    #    editable_fields = columns["Vehicle", "Vehicle_Type", "Vehicle_Status_Type", "Vehicle_Load", "Fuel_Type",
+    # "Driver", "Driver_Address", "Driver_Qualification", "Emergency_Contact", "Vehicle_Driver_Assignment",
+    # "Customer", "Customer_Address", "Load_Customer",
+    # "Delivery_Status",
+    # "Cargo", "Cargo_Type",
+    # "Maintenance", "Maintenance_Type",
+    # "Service_Provider", "Service_Provider_Address", "Service_Status",
+    # "Location", "Address"]
+
     editable_fields = columns
     if table in ["Vehicle_Type", "Vehicle_Status_Type", "Fuel_Type"]:
         editable_fields = columns[1:3] if len(columns) >= 3 else columns[1:]
+
 
     for idx, col in enumerate(columns):
         if col not in editable_fields and not data:
@@ -120,8 +131,37 @@ sections = {
          "Vehicle_Load",
         "Fuel_Type"
     ],
+    "Driver Management": [
+        "Driver",
+        "Driver_Address",
+        "Driver_Qualification",
+        "Emergency_Contact",
+        "Vehicle_Driver_Assignment"
+    ],
+    "Customer Management": [
+        "Customer",
+        "Customer_Address",
+        "Load_Customer"
+    ],
     "Delivery Management" : [
         "Delivery_Status"
+    ],
+    "Cargo Management": [
+        "Cargo",
+        "Cargo_Type"
+    ],
+    "Maintenance Management": [
+        "Maintenance",
+        "Maintenance_Type"
+    ],
+    "Service Management": [
+        "Service_Provider",
+        "Service_Provider_Address",
+        "Service_Status"
+    ],
+    "Address Management": [
+        "Location",
+        "Address"
     ]
 }
 
