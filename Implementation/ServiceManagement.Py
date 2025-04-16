@@ -119,3 +119,27 @@ def search_data(tree, table, column, value):
         conn.close()
     except Exception as e:
         messagebox.showerror("Search Error", str(e))
+        tk.Button(scrollable_frame, text="Save", command=save).pack(pady=10)
+    
+    canvas.pack(side="left", fill="both", expand=True)
+    scrollbar.pack(side="right", fill="y")
+
+def delete_selected(table, tree):
+    selected = tree.selection()
+    if not selected:
+        messagebox.showinfo("Delete", "Select a record first.")
+        return
+    
+    if messagebox.askyesno("Confirm Delete", "Are you sure you want to delete this record?"):
+        try:
+            conn = connect_db()
+            cursor = conn.cursor()
+            item = tree.item(selected[0])
+            record_id = item["values"][0]
+            cursor.execute(f"DELETE FROM {table} WHERE {tree['columns'][0]}=%s", (record_id,))
+            conn.commit()
+            conn.close()
+            fetch_data(tree, table)
+        except Exception as e:
+            messagebox.showerror("Delete Error", str(e))
+
