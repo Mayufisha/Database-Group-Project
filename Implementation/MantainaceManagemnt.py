@@ -26,4 +26,16 @@ def fetch_data(tree, table):
     except Exception as e:
         messagebox.showerror("DB Error", str(e))
         return []
-        
+def search_data(tree, table, column, value):
+    try:
+        conn = connect_db()
+        cursor = conn.cursor()
+        cursor.execute(f"SELECT * FROM {table} WHERE {column} LIKE %s", (f"%{value}%",))
+        rows = cursor.fetchall()
+        tree.delete(*tree.get_children())
+        for row in rows:
+            tree.insert("", tk.END, values=row)
+        conn.close()
+    except Exception as e:
+        messagebox.showerror("Search Error", str(e))
+
