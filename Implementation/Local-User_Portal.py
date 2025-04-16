@@ -48,7 +48,7 @@ def search_data(tree, table, column, value):
 
 # ========== UI Setup ==========
 root = tk.Tk()
-root.title("Fleet Management")
+root.title("Local-User Portal")
 root.geometry("1200x800")
 
 notebook = ttk.Notebook(root)

@@ -23,6 +23,8 @@ def login():
         subprocess.Popen(["python", "Admin-User_Portal.py"])
     elif username == "local" and password == "12345":
         messagebox.showinfo("Login Success", "Welcome, Local User!")
+        root.destroy()
+        subprocess.Popen(["python", "Local-User_Portal.py"])
     else:
         messagebox.showerror("Login Failed", "Invalid username or password")
 
