@@ -53,3 +53,14 @@ root.geometry("1200x800")
 
 notebook = ttk.Notebook(root)
 notebook.pack(fill="both", expand=True)
+
+tables = {
+    "Customer": "Customers",
+    "Driver": "Drivers",
+    "Vehicle": "Vehicles",
+    "Vehicle_Type": "Vehicle Types",
+    "Fuel_Type": "Fuel Types",
+    "Delivery_Status": "Deliveries",
+    "Maintenance": "Maintenance",
+    "Service_Provider": "Service Providers"
+}
