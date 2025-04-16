@@ -39,3 +39,86 @@ def search_data(tree, table, column, value):
     except Exception as e:
         messagebox.showerror("Search Error", str(e))
 
+def add_edit_form(table, columns, tree, data=None):
+    form = tk.Toplevel()
+    form.title("Edit" if data else "Add")
+    form.geometry("400x600")
+    
+    # Create a canvas with scrollbar
+    canvas = tk.Canvas(form)
+    scrollbar = ttk.Scrollbar(form, orient="vertical", command=canvas.yview)
+    scrollable_frame = ttk.Frame(canvas)
+
+    scrollable_frame.bind(
+        "<Configure>",
+        lambda e: canvas.configure(scrollregion=canvas.bbox("all"))
+    )
+
+    canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+    canvas.configure(yscrollcommand=scrollbar.set)
+
+    entries = []
+    
+    for idx, col in enumerate(columns):
+        if not data and col in ['Maintenance_ID']:  # Skip auto-increment fields for new entries
+            continue
+        
+        label = tk.Label(scrollable_frame, text=col)
+        label.pack(pady=2)
+        
+        if col == 'Vehicle_ID':  # Create dropdown for Vehicle selection
+            conn = connect_db()
+            cursor = conn.cursor()
+            cursor.execute("SELECT Vehicle_ID FROM Vehicle")
+            vehicle_ids = [str(vid[0]) for vid in cursor.fetchall()]
+            conn.close()
+            
+            var = tk.StringVar(value=data[idx] if data else "")
+            combo = ttk.Combobox(scrollable_frame, values=vehicle_ids, textvariable=var)
+            combo.pack(pady=2)
+            entries.append((col, var))
+            
+        elif col == 'Service_Provider_ID':  # Create dropdown for Service Provider selection
+            conn = connect_db()
+            cursor = conn.cursor()
+            cursor.execute("SELECT Service_Provider_ID FROM Service_Provider")
+            provider_ids = [str(pid[0]) for pid in cursor.fetchall()]
+            conn.close()
+            
+            var = tk.StringVar(value=data[idx] if data else "")
+            combo = ttk.Combobox(scrollable_frame, values=provider_ids, textvariable=var)
+            combo.pack(pady=2)
+            entries.append((col, var))
+            
+        else:
+            var = tk.StringVar(value=data[idx] if data else "")
+            entry = tk.Entry(scrollable_frame, textvariable=var)
+            entry.pack(pady=2)
+            entries.append((col, var))
+
+    def save():
+        values = [v.get() for _, v in entries]
+        try:
+            conn = connect_db()
+            cursor = conn.cursor()
+            if data:
+                set_clause = ", ".join([f"{col}=%s" for col, _ in entries[1:]])
+                cursor.execute(f"UPDATE {table} SET {set_clause} WHERE {entries[0][0]}=%s", values[1:] + [values[0]])
+            else:
+                col_clause = ", ".join([col for col, _ in entries])
+                q_clause = ", ".join(["%s"] * len(entries))
+                cursor.execute(f"INSERT INTO {table} ({col_clause}) VALUES ({q_clause})", values)
+            conn.commit()
+            conn.close()
+            fetch_data(tree, table)
+            form.destroy()
+        except Exception as e:
+            messagebox.showerror("Error", str(e))
+
+    tk.Button(scrollable_frame, text="Save", command=save).pack(pady=10)
+
+    # Pack the canvas and scrollbar
+    canvas.pack(side="left", fill="both", expand=True)
+    scrollbar.pack(side="right", fill="y")
+
+
