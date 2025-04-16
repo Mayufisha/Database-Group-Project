@@ -64,3 +64,50 @@ tables = {
     "Maintenance": "Maintenance",
     "Service_Provider": "Service Providers"
 }
+treeviews = {}
+
+for table, label in tables.items():
+    tab = ttk.Frame(notebook)
+    notebook.add(tab, text=label)
+
+    search_frame = ttk.Frame(tab)
+    search_frame.pack(fill="x", padx=10, pady=5)
+
+    tk.Label(search_frame, text=f"Search {label} by:").pack(side="left")
+    columns = fetch_data(None, table)
+    col_selector = ttk.Combobox(search_frame, values=columns, state="readonly")
+    col_selector.set(columns[0])
+    col_selector.pack(side="left", padx=5)
+
+    search_entry = tk.Entry(search_frame)
+    search_entry.pack(side="left", padx=5)
+
+    tree = ttk.Treeview(tab, columns=columns, show="headings")
+    for col in columns:
+        tree.heading(col, text=col)
+        tree.column(col, anchor=tk.CENTER)
+    tree.pack(expand=True, fill="both", padx=10, pady=10)
+
+    search_button = ttk.Button(
+        search_frame,
+        text="Search",
+        command=lambda t=tree, tbl=table, cs=col_selector, se=search_entry: search_data(t, tbl, cs.get(), se.get())
+    )
+    search_button.pack(side="left")
+
+    refresh_button = ttk.Button(
+        search_frame,
+        text="Refresh",
+        command=lambda t=tree, tbl=table, se=search_entry: [
+            se.delete(0, tk.END),  # Clear the search field
+            fetch_data(t, tbl)     # Reload the full table
+        ]
+    )
+    refresh_button.pack(side="left", padx=5)
+
+
+    fetch_data(tree, table)
+    treeviews[table] = tree
+
+# ========== Run ==========
+root.mainloop()
