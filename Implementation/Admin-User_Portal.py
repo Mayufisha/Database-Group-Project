@@ -106,70 +106,83 @@ root.geometry("1200x800")
 notebook = ttk.Notebook(root)
 notebook.pack(expand=True, fill="both")
 
-vehicle_mgmt_tab = ttk.Frame(notebook)
-notebook.add(vehicle_mgmt_tab, text="Vehicle Management")
+# vehicle_mgmt_tab = ttk.Frame(notebook)
+# notebook.add(vehicle_mgmt_tab, text="Vehicle Management")
+#
+# sub_notebook = ttk.Notebook(vehicle_mgmt_tab)
+# sub_notebook.pack(expand=True, fill="both")
 
-sub_notebook = ttk.Notebook(vehicle_mgmt_tab)
-sub_notebook.pack(expand=True, fill="both")
-
-tables = {
-    "Vehicle": "Vehicles",
-    "Vehicle_Type": "Vehicle Types",
-    "Vehicle_Status_Type": "Vehicle Status Types",
-    "Vehicle_Load": "Vehicle Load",
-    "Fuel_Type": "Fuel Types"
+sections = {
+    "Vehicle Management" : [
+         "Vehicle",
+         "Vehicle_Type",
+         "Vehicle_Status_Type",
+         "Vehicle_Load",
+        "Fuel_Type"
+    ],
+    "Delivery Management" : [
+        "Delivery_Status"
+    ]
 }
 
-for table, label in tables.items():
-    tab = ttk.Frame(sub_notebook)
-    sub_notebook.add(tab, text=label)
+for section_name, tables in sections.items():
+    section_tab = ttk.Frame(notebook)
+    notebook.add(section_tab, text=section_name)
 
-    search_frame = ttk.Frame(tab)
-    search_frame.pack(fill="x", padx=10, pady=5)
+    sub_notebook = ttk.Notebook(section_tab)
+    sub_notebook.pack(expand=True, fill="both")
 
-    tk.Label(search_frame, text=f"Search {label} by:").pack(side="left")
-    cols = fetch_data(None, table)
-    search_option = ttk.Combobox(search_frame, values=cols, state="readonly")
-    search_option.set(cols[0])
-    search_option.pack(side="left", padx=5)
+    for table in tables:
+        label = table.replace("_", " ").title()
+        tab = ttk.Frame(sub_notebook)
+        sub_notebook.add(tab, text=label)
 
-    search_entry = tk.Entry(search_frame)
-    search_entry.pack(side="left", padx=5)
+        search_frame = ttk.Frame(tab)
+        search_frame.pack(fill="x", padx=10, pady=5)
 
-    # Frame to hold treeview and scrollbars
-    tree_frame = ttk.Frame(tab)
-    tree_frame.pack(expand=True, fill="both", padx=10, pady=5)
+        tk.Label(search_frame, text=f"Search {label} by:").pack(side="left")
+        cols = fetch_data(None, table)
+        search_option = ttk.Combobox(search_frame, values=cols, state="readonly")
+        search_option.set(cols[0])
+        search_option.pack(side="left", padx=5)
 
-    # Treeview widget
-    tree = ttk.Treeview(tree_frame, columns=cols, show="headings")
+        search_entry = tk.Entry(search_frame)
+        search_entry.pack(side="left", padx=5)
 
-    # Scrollbars
-    vsb = ttk.Scrollbar(tree_frame, orient="vertical", command=tree.yview)
-    hsb = ttk.Scrollbar(tree_frame, orient="horizontal", command=tree.xview)
-    tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+        # Frame to hold treeview and scrollbars
+        tree_frame = ttk.Frame(tab)
+        tree_frame.pack(expand=True, fill="both", padx=10, pady=5)
 
-    # Positioning using grid
-    tree.grid(row=0, column=0, sticky="nsew")
-    vsb.grid(row=0, column=1, sticky="ns")
-    hsb.grid(row=1, column=0, sticky="ew")
+        # Treeview widget
+        tree = ttk.Treeview(tree_frame, columns=cols, show="headings")
 
-    # Allow stretch
-    tree_frame.columnconfigure(0, weight=1)
-    tree_frame.rowconfigure(0, weight=1)
+        # Scrollbars
+        vsb = ttk.Scrollbar(tree_frame, orient="vertical", command=tree.yview)
+        hsb = ttk.Scrollbar(tree_frame, orient="horizontal", command=tree.xview)
+        tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
 
-    # Add column headings
-    for col in cols:
-        tree.heading(col, text=col)
-        tree.column(col, anchor="center")
+        # Positioning using grid
+        tree.grid(row=0, column=0, sticky="nsew")
+        vsb.grid(row=0, column=1, sticky="ns")
+        hsb.grid(row=1, column=0, sticky="ew")
 
-    fetch_data(tree, table)
+        # Allow stretch
+        tree_frame.columnconfigure(0, weight=1)
+        tree_frame.rowconfigure(0, weight=1)
 
-    ttk.Button(search_frame, text="Search",
-               command=lambda t=tree, tbl=table, s=search_option, e=search_entry: search_data(t, tbl, s.get(),
-                                                                                              e.get())).pack(
-        side="left")
+        # Add column headings
+        for col in cols:
+            tree.heading(col, text=col)
+            tree.column(col, anchor="center")
 
-    ttk.Button(search_frame, text="Clear",
+        fetch_data(tree, table)
+
+        ttk.Button(search_frame, text="Search",
+                   command=lambda t=tree, tbl=table, s=search_option, e=search_entry: search_data(t, tbl, s.get(),
+                                                                                                  e.get())).pack(
+            side="left")
+
+        ttk.Button(search_frame, text="Clear",
                command=lambda t=tree, tbl=table: [search_entry.delete(0, tk.END), fetch_data(t, tbl)]).pack(side="left",
                                                                                                             padx=5)
 
