@@ -26,3 +26,4 @@ def fetch_data(tree, table):
     except Exception as e:
         messagebox.showerror("DB Error", str(e))
         return []
+        
