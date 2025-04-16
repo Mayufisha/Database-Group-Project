@@ -144,4 +144,88 @@ def delete_selected(table, tree):
     canvas.pack(side="left", fill="both", expand=True)
     scrollbar.pack(side="right", fill="y")
 
+root = tk.Tk()
+root.title("Service Management Portal")
+root.geometry("1200x800")
+
+notebook = ttk.Notebook(root)
+notebook.pack(expand=True, fill="both")
+
+service_tab = ttk.Frame(notebook)
+notebook.add(service_tab, text="Service Management")
+
+tables = {
+    "Service_Provider": "Service Providers",
+    "Service_Status": "Service Status",
+    "Service_Provider_Address": "Provider Addresses"
+}
+
+sub_notebook = ttk.Notebook(service_tab)
+sub_notebook.pack(expand=True, fill="both")
+
+for table, label in tables.items():
+    tab = ttk.Frame(sub_notebook)
+    sub_notebook.add(tab, text=label)
+
+    # Search Frame
+    search_frame = ttk.Frame(tab)
+    search_frame.pack(fill="x", padx=10, pady=5)
+
+    tk.Label(search_frame, text=f"Search {label} by:").pack(side="left")
+    cols = fetch_data(None, table)
+    search_option = ttk.Combobox(search_frame, values=cols, state="readonly")
+    search_option.set(cols[0])
+    search_option.pack(side="left", padx=5)
+
+    search_entry = tk.Entry(search_frame)
+    search_entry.pack(side="left", padx=5)
+
+    # Tree Frame
+    tree_frame = ttk.Frame(tab)
+    tree_frame.pack(expand=True, fill="both", padx=10, pady=5)
+
+    tree = ttk.Treeview(tree_frame, columns=cols, show="headings")
+    vsb = ttk.Scrollbar(tree_frame, orient="vertical", command=tree.yview)
+    hsb = ttk.Scrollbar(tree_frame, orient="horizontal", command=tree.xview)
+    tree.configure(yscrollcommand=vsb.set, xscrollcommand=hsb.set)
+
+    tree.grid(row=0, column=0, sticky="nsew")
+    vsb.grid(row=0, column=1, sticky="ns")
+    hsb.grid(row=1, column=0, sticky="ew")
+
+    tree_frame.columnconfigure(0, weight=1)
+    tree_frame.rowconfigure(0, weight=1)
+
+    for col in cols:
+        tree.heading(col, text=col)
+        tree.column(col, anchor="center", width=100)
+
+    fetch_data(tree, table)
+
+    # Buttons
+    ttk.Button(search_frame, text="Search",
+               command=lambda t=tree, tbl=table, s=search_option, e=search_entry: 
+               search_data(t, tbl, s.get(), e.get())).pack(side="left")
+
+    ttk.Button(search_frame, text="Clear",
+               command=lambda t=tree, tbl=table: [search_entry.delete(0, tk.END), 
+               fetch_data(t, tbl)]).pack(side="left", padx=5)
+
+    action_frame = ttk.Frame(tab)
+    action_frame.pack(pady=10)
+
+    ttk.Button(action_frame, text="Add", 
+               command=lambda t=tree, tbl=table, c=cols: add_edit_form(tbl, c, t)).pack(side="left", padx=5)
+
+    ttk.Button(action_frame, text="Edit", 
+               command=lambda t=tree, tbl=table, c=cols: 
+               add_edit_form(tbl, c, t, t.item(t.selection()[0])["values"] 
+               if t.selection() else None)).pack(side="left", padx=5)
+
+    ttk.Button(action_frame, text="Delete", 
+               command=lambda t=tree, tbl=table: delete_selected(tbl, t)).pack(side="left", padx=5)
+
+root.mainloop()
+
+
 
