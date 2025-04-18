@@ -1,0 +1,5 @@
+	Members Role
+1. Bhupinder
+2. Michael
+3. Salvador		-- Database Design & Testing
+4. Samuel Molla		-- UI design & Documentation
