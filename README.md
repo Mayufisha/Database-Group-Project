@@ -1,4 +1,6 @@
-Version 1 Read Me
+# ####################################
+# VERSION  1 ReadMe ##################
+# ####################################
 
 # Fleet Management System
 
@@ -48,8 +50,8 @@ The Fleet Management System is a desktop application built with Python and Tkint
 
 1. Clone the repository:
 ```
-git clone https://github.com/yourusername/fleet-management-system.git
-cd fleet-management-system
+git clone https://github.com/Mayufisha/Database-Group-Project.git
+cd "Implementation" folder
 ```
 
 2. Install the required packages:
@@ -57,17 +59,17 @@ cd fleet-management-system
 pip install -r requirements.txt
 ```
 
-3. Set up the MySQL database:
-   - Create a new database called `fleet_management`
-   - Import the database schema from `database/schema.sql`
-   - (Optional) Import sample data from `database/sample_data.sql`
+3. Set up the MySQL database: (for local , however this application is using aws mysql)
+   - Create a new database called `corporate`
+   - Import the database schema from `database/Normalized_CreateTable.txt`
+   - (Optional) Import sample data from `database/Normalized_insertData.txt`
 
 4. Configure database connection:
    - Create a `.env` file in the project root with the following details:
    ```
    MYSQL_HOST=localhost
    MYSQL_PORT=3306
-   MYSQL_DATABASE=fleet_management
+   MYSQL_DATABASE=corporate
    MYSQL_USER=your_username
    MYSQL_PASSWORD=your_password
    ```
@@ -80,7 +82,7 @@ python login_system.py
 ## Project Structure
 
 ```
-fleet-management-system/
+database-group-project/
 ├── admin_user_portal.py     # Admin portal implementation
 ├── local_user_portal.py     # Local user portal implementation
 ├── login_system.py          # Login system
@@ -89,13 +91,7 @@ fleet-management-system/
 ├── return_to_admin.py       # Navigation helper
 ├── config/                  # Configuration files
 │   └── users.json           # User credentials (auto-generated)
-├── assets/                  # Application assets
-│   ├── logo.png             # Logo image
-│   └── icon.ico             # Application icon
-├── database/                # Database scripts
-│   ├── schema.sql           # Database schema
-│   └── sample_data.sql      # Optional sample data
-└── LICENSE                  # License file
+
 ```
 
 ## Usage
@@ -177,16 +173,12 @@ The application logs information and errors to `fleet_management.log`. Check thi
 
 ## Credits
 
-Developed by [Your Name or Company]
-
-## Contact
-
-For support or inquiries, please contact:
-- Email: support@fleetmanagementsystem.com
-- Website: [your-website.com]
+Developed by Samuel, Salvador, Bhupinder and Michael
 
 
-Version 2 Read Me
+# ####################################
+# VERSION  2 ReadMe USING LANDING PAGE
+# ####################################
 
 # Fleet Management System
 
@@ -228,12 +220,32 @@ The system is divided into multiple modules that can be accessed through a centr
 
 ## Installation
 
-1. Ensure you have Python 3.7+ installed
-2. Install required packages:
+1. Clone the repository:
+```
+git clone https://github.com/Mayufisha/Database-Group-Project.git
+cd "Implementation" folder
+```
+
+2. Install the required packages:
+```
+pip install -r requirements.txt
+```
+
+3. Set up the MySQL database: (for local , however this application is using aws mysql)
+   - Create a new database called `corporate`
+   - Import the database schema from `database/Normalized_CreateTable.txt`
+   - (Optional) Import sample data from `database/Normalized_insertData.txt`
+
+4. Configure database connection:
+   - Create a `.env` file in the project root with the following details:
    ```
-   pip install mysql-connector-python python-dotenv
+   MYSQL_HOST=localhost
+   MYSQL_PORT=3306
+   MYSQL_DATABASE=corporate
+   MYSQL_USER=your_username
+   MYSQL_PASSWORD=your_password
    ```
-3. Configure your database connection in a `.env` file
+
 
 ## Running the Application
 
@@ -272,6 +284,34 @@ To add new modules:
 - User credentials are stored with SHA-256 hashing
 - Role-based access control separates admin and user functions
 - Session management ensures proper authentication
+
+## Folder Structure
+`````
+
+database-group-project/
+├── requirements.txt
+├── .env # user database login
+├── database_connection.py
+├── admin_login.py
+├── admin_portal.py
+├── form_utils.py
+├── landing_page.py
+├── user_login.py
+├── module_loader.py
+├── return_to_admin.py
+├── admin_user_portal.py
+├── local_user_portal.py
+├── login_system.py
+├── cargo_management.py
+├── customer_management.py
+├── database_connection copy.py
+├── driver_management.py
+├── maintenance_management.py
+├── service_management.py
+├── config
+│   └── users.json  # User credentials (auto-generated)
+└── fleet_management.log
+`````
 
 ## Logging
 
