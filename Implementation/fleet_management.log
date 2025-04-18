@@ -1,0 +1,18 @@
+2025-04-17 22:05:24,888 - login - INFO - Created default credentials file
+2025-04-17 22:05:24,889 - login - INFO - User admin logged in as admin
+2025-04-17 22:05:30,059 - return_to_admin - INFO - Added admin navigation to menu bar
+2025-04-17 22:26:09,311 - landing_page - INFO - Admin Login selected
+2025-04-17 22:26:15,217 - admin_login - INFO - Admin user admin logged in
+2025-04-17 22:26:18,206 - admin_portal - INFO - Opening System Logs
+2025-04-17 22:26:22,253 - admin_portal - INFO - Opening Admin User Portal
+2025-04-17 22:26:22,318 - module_loader - INFO - Loading module: admin_user_portal
+2025-04-17 22:26:22,319 - return_to_admin - INFO - Module admin_user_portal.py already patched
+2025-04-17 22:26:22,319 - return_to_admin - INFO - Module cargo_management.py already patched
+2025-04-17 22:26:22,319 - return_to_admin - INFO - Module customer_management.py already patched
+2025-04-17 22:26:22,320 - return_to_admin - INFO - Module driver_management.py already patched
+2025-04-17 22:26:22,320 - return_to_admin - INFO - Module maintenance_management.py already patched
+2025-04-17 22:26:22,320 - return_to_admin - INFO - Module service_management.py already patched
+2025-04-17 22:26:22,749 - mysql.connector - INFO - package: mysql.connector.plugins
+2025-04-17 22:26:22,750 - mysql.connector - INFO - plugin_name: mysql_native_password
+2025-04-17 22:26:22,757 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2025-04-17 22:26:25,678 - return_to_admin - INFO - Added admin navigation to menu bar

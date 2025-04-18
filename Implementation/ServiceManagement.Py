@@ -1,14 +1,30 @@
+import os
+from dotenv import load_dotenv
 import tkinter as tk
 from tkinter import ttk, messagebox
 import mysql.connector
 
+# load files variables from .env
+load_dotenv()
+
+
+# Access the environment variables
+db_host = os.getenv("MYSQL_HOST")
+db_port = os.getenv("MYSQL_PORT")
+db_name = os.getenv("MYSQL_DATABASE")
+db_user = os.getenv("MYSQL_USER")
+db_password = os.getenv("MYSQL_PASSWORD")
+
 def connect_db():
     return mysql.connector.connect(
-        host="ls-d3311d7ae41e61c25d492ef874e447d39eb24c2b.cz88m42um6aw.ca-central-1.rds.amazonaws.com",
-        user="dbmasteruser",
-        password="M(;+O4+>L{PM~c;tCmd)XEt]9?y9sAe{",
-        database="corporate"
+        host=db_host,
+        port=db_port,
+        user=db_user,
+        password=db_password,
+        database=db_name
     )
+
+
 def fetch_data(tree, table):
     try:
         conn = connect_db()

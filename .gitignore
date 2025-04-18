@@ -1,1 +1,4 @@
 *.docx
+/.idea
+/.idea
+/Implementation/__pycache__
