@@ -1,7 +1,19 @@
 import os
+import logging
 from dotenv import load_dotenv
 import mysql.connector
 from mysql.connector import pooling
+
+# Set up logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler("fleet_management.log"),
+        logging.StreamHandler()
+    ]
+)
+logger = logging.getLogger("database")
 
 # Load environment variables
 load_dotenv()
@@ -24,16 +36,16 @@ try:
         password=db_password,
         database=db_name
     )
-    print("Connection Pool created successfully")
+    logger.info("Connection Pool created successfully")
 except Exception as e:
-    print(f"Error creating connection pool: {e}")
+    logger.error(f"Error creating connection pool: {e}")
 
 # Function to get a connection from the pool
 def get_connection():
     try:
         return connection_pool.get_connection()
     except Exception as e:
-        print(f"Error getting connection from pool: {e}")
+        logger.error(f"Error getting connection from pool: {e}")
         # Fallback to direct connection if pool fails
         return mysql.connector.connect(
             host=db_host,
@@ -60,7 +72,7 @@ def get_table_columns(table_name):
         column_cache[table_name] = cols
         return cols
     except Exception as e:
-        print(f"Error fetching columns for {table_name}: {e}")
+        logger.error(f"Error fetching columns for {table_name}: {e}")
         return []
     finally:
         if conn:
@@ -83,7 +95,7 @@ def fetch_data_paginated(table, page=1, items_per_page=100):
         
         return rows, total_count
     except Exception as e:
-        print(f"Error fetching data from {table}: {e}")
+        logger.error(f"Error fetching data from {table}: {e}")
         return [], 0
     finally:
         if conn:
@@ -100,11 +112,13 @@ def execute_query(query, params=None):
         else:
             cursor.execute(query)
         conn.commit()
-        return cursor.fetchall() if cursor.with_rows else None
+        result = cursor.fetchall() if cursor.with_rows else None
+        logger.info(f"Query executed: {query[:50]}...")
+        return result
     except Exception as e:
         if conn:
             conn.rollback()
-        print(f"Error executing query: {e}")
+        logger.error(f"Error executing query: {e}")
         raise e
     finally:
         if conn:
@@ -112,14 +126,44 @@ def execute_query(query, params=None):
 
 # Function to search data
 def search_data(table, column, value):
-    query = f"SELECT * FROM {table} WHERE {column} LIKE %s"
-    return execute_query(query, (f"%{value}%",))
+    conn = None
+    try:
+        conn = get_connection()
+        cursor = conn.cursor()
+        query = f"SELECT * FROM {table} WHERE {column} LIKE %s"
+        cursor.execute(query, (f"%{value}%",))
+        rows = cursor.fetchall()  # Make sure to fetch all results
+        return rows
+    except Exception as e:
+        print(f"Error searching data in {table}: {e}")
+        return []
+    finally:
+        if conn:
+            conn.close()
+
+# Function to advanced search with multiple criteria
+def advanced_search_data(table, search_params):
+    """Search with multiple criteria"""
+    query_parts = []
+    params = []
+    
+    for column, value in search_params:
+        if value:  # Only add non-empty criteria
+            query_parts.append(f"{column} LIKE %s")
+            params.append(f"%{value}%")
+    
+    if not query_parts:
+        return fetch_data_paginated(table)[0], 0
+    
+    query = f"SELECT * FROM {table} WHERE " + " AND ".join(query_parts)
+    return execute_query(query, params), len(params)
 
 # Function to insert data
 def insert_data(table, columns, values):
     col_clause = ", ".join(columns)
     placeholder_clause = ", ".join(["%s"] * len(values))
     query = f"INSERT INTO {table} ({col_clause}) VALUES ({placeholder_clause})"
+    logger.info(f"Inserting into {table}: {', '.join(str(v) for v in values[:3])}...")
     return execute_query(query, values)
 
 # Function to update data
@@ -127,31 +171,97 @@ def update_data(table, columns, values, id_column, id_value):
     set_clause = ", ".join([f"{col}=%s" for col in columns])
     query = f"UPDATE {table} SET {set_clause} WHERE {id_column}=%s"
     all_values = values + [id_value]
+    logger.info(f"Updating {table} where {id_column}={id_value}")
     return execute_query(query, all_values)
 
 # Function to delete data
 def delete_data(table, id_column, id_value):
     query = f"DELETE FROM {table} WHERE {id_column}=%s"
+    logger.info(f"Deleting from {table} where {id_column}={id_value}")
     return execute_query(query, (id_value,))
 
-# Add to database_connection.py:
+# Generic function to fetch all data from a table
+def fetch_all_data(table):
+    query = f"SELECT * FROM {table}"
+    return execute_query(query)
 
-def fetch_table_data(table, search_params=None):
-    """Generic function to fetch data from any table with optional search"""
+# Function to get foreign key data for dropdowns
+def get_foreign_key_options(table, id_column, display_column=None):
+    """Get options for foreign key dropdowns"""
+    if display_column:
+        query = f"SELECT {id_column}, {display_column} FROM {table}"
+        result = execute_query(query)
+        return result if result else []
+    else:
+        query = f"SELECT {id_column} FROM {table}"
+        result = execute_query(query)
+        return [item[0] for item in result] if result else []
+
+# Function to export data to CSV
+def export_data_to_csv(table, filename):
+    """Export table data to CSV file"""
+    import csv
+    
+    try:
+        data = fetch_all_data(table)
+        columns = get_table_columns(table)
+        
+        with open(filename, 'w', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(columns)  # Write header
+            writer.writerows(data)    # Write data
+        
+        logger.info(f"Data from {table} exported to {filename}")
+        return True
+    except Exception as e:
+        logger.error(f"Error exporting data: {e}")
+        return False
+
+# Validate data before insert/update
+def validate_data(table, data_dict):
+    """Validate data before saving to database
+    Returns (is_valid, error_message)"""
+    
+    errors = []
+    
+    # Get table columns and their properties
+    conn = None
     try:
         conn = get_connection()
         cursor = conn.cursor()
+        cursor.execute(f"DESCRIBE {table}")
+        columns_info = cursor.fetchall()
         
-        if search_params:
-            column, value = search_params
-            query = f"SELECT * FROM {table} WHERE {column} LIKE %s"
-            cursor.execute(query, (f"%{value}%",))
-        else:
-            cursor.execute(f"SELECT * FROM {table}")
+        # Basic validation rules based on column properties
+        for col_info in columns_info:
+            col_name = col_info[0]
+            col_type = col_info[1]
+            is_nullable = col_info[2] == 'YES'
             
-        rows = cursor.fetchall()
-        return rows
+            if col_name in data_dict:
+                value = data_dict[col_name]
+                
+                # Check for required fields
+                if not is_nullable and (value is None or value == ''):
+                    errors.append(f"{col_name} is required")
+                
+                # Type validation
+                if value and 'int' in col_type and not str(value).isdigit():
+                    errors.append(f"{col_name} must be a number")
+                
+                # Date validation
+                if value and 'date' in col_type:
+                    try:
+                        from datetime import datetime
+                        datetime.strptime(value, '%Y-%m-%d')
+                    except ValueError:
+                        errors.append(f"{col_name} must be a valid date (YYYY-MM-DD)")
+        
+        return (len(errors) == 0, ', '.join(errors))
+    
+    except Exception as e:
+        logger.error(f"Validation error: {e}")
+        return (False, str(e))
     finally:
         if conn:
             conn.close()
-
