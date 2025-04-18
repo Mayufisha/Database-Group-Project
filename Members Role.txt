@@ -1,5 +1,5 @@
 	Members Role
 1. Bhupinder
-2. Michael		--	Driver, Cargo and Customer Managemant
+2. Michael		-- Driver, Cargo and Customer Managemant
 3. Salvador		-- Database Design & Testing
 4. Samuel Molla		-- UI design & Documentation
