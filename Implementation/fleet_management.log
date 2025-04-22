@@ -16,3 +16,94 @@
 2025-04-17 22:26:22,750 - mysql.connector - INFO - plugin_name: mysql_native_password
 2025-04-17 22:26:22,757 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
 2025-04-17 22:26:25,678 - return_to_admin - INFO - Added admin navigation to menu bar
+2025-04-17 22:34:03,825 - landing_page - INFO - Admin Login selected
+2025-04-17 22:34:08,964 - admin_login - INFO - Admin user admin logged in
+2025-04-17 22:34:11,986 - admin_portal - INFO - Opening Cargo Management
+2025-04-17 22:34:12,042 - module_loader - INFO - Loading module: cargo_management
+2025-04-17 22:34:12,043 - return_to_admin - INFO - Module admin_user_portal.py already patched
+2025-04-17 22:34:12,043 - return_to_admin - INFO - Module cargo_management.py already patched
+2025-04-17 22:34:12,043 - return_to_admin - INFO - Module customer_management.py already patched
+2025-04-17 22:34:12,043 - return_to_admin - INFO - Module driver_management.py already patched
+2025-04-17 22:34:12,044 - return_to_admin - INFO - Module maintenance_management.py already patched
+2025-04-17 22:34:12,044 - return_to_admin - INFO - Module service_management.py already patched
+2025-04-17 22:34:12,474 - mysql.connector - INFO - package: mysql.connector.plugins
+2025-04-17 22:34:12,474 - mysql.connector - INFO - plugin_name: mysql_native_password
+2025-04-17 22:34:12,480 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2025-04-17 22:34:15,805 - return_to_admin - INFO - Added admin navigation to menu bar
+2025-04-17 22:34:25,825 - admin_portal - INFO - Opening Admin User Portal
+2025-04-17 22:34:25,894 - module_loader - INFO - Loading module: admin_user_portal
+2025-04-17 22:34:25,894 - return_to_admin - INFO - Module admin_user_portal.py already patched
+2025-04-17 22:34:25,894 - return_to_admin - INFO - Module cargo_management.py already patched
+2025-04-17 22:34:25,895 - return_to_admin - INFO - Module customer_management.py already patched
+2025-04-17 22:34:25,895 - return_to_admin - INFO - Module driver_management.py already patched
+2025-04-17 22:34:25,895 - return_to_admin - INFO - Module maintenance_management.py already patched
+2025-04-17 22:34:25,895 - return_to_admin - INFO - Module service_management.py already patched
+2025-04-17 22:34:26,341 - mysql.connector - INFO - package: mysql.connector.plugins
+2025-04-17 22:34:26,342 - mysql.connector - INFO - plugin_name: mysql_native_password
+2025-04-17 22:34:26,349 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2025-04-17 22:34:29,271 - return_to_admin - INFO - Added admin navigation to menu bar
+2025-04-17 22:36:35,197 - admin_portal - INFO - Admin logged out
+2025-04-17 23:05:00,904 - landing_page - INFO - Admin Login selected
+2025-04-17 23:05:09,075 - admin_login - INFO - Admin user admin logged in
+2025-04-17 23:05:14,601 - admin_portal - INFO - Opening Cargo Management
+2025-04-17 23:05:14,686 - module_loader - INFO - Loading module: cargo_management
+2025-04-17 23:05:14,687 - return_to_admin - INFO - Module admin_user_portal.py already patched
+2025-04-17 23:05:14,687 - return_to_admin - INFO - Module cargo_management.py already patched
+2025-04-17 23:05:14,687 - return_to_admin - INFO - Module customer_management.py already patched
+2025-04-17 23:05:14,687 - return_to_admin - INFO - Module driver_management.py already patched
+2025-04-17 23:05:14,687 - return_to_admin - INFO - Module maintenance_management.py already patched
+2025-04-17 23:05:14,688 - return_to_admin - INFO - Module service_management.py already patched
+2025-04-17 23:05:15,101 - mysql.connector - INFO - package: mysql.connector.plugins
+2025-04-17 23:05:15,102 - mysql.connector - INFO - plugin_name: mysql_native_password
+2025-04-17 23:05:15,103 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2025-04-17 23:05:17,990 - module_loader - ERROR - Error loading module cargo_management: [Errno 32] Broken pipe
+2025-04-17 23:05:25,406 - admin_portal - INFO - Opening Admin User Portal
+2025-04-17 23:05:25,497 - module_loader - INFO - Loading module: admin_user_portal
+2025-04-17 23:05:25,497 - return_to_admin - INFO - Module admin_user_portal.py already patched
+2025-04-17 23:05:25,497 - return_to_admin - INFO - Module cargo_management.py already patched
+2025-04-17 23:05:25,497 - return_to_admin - INFO - Module customer_management.py already patched
+2025-04-17 23:05:25,498 - return_to_admin - INFO - Module driver_management.py already patched
+2025-04-17 23:05:25,498 - return_to_admin - INFO - Module maintenance_management.py already patched
+2025-04-17 23:05:25,498 - return_to_admin - INFO - Module service_management.py already patched
+2025-04-17 23:05:25,866 - mysql.connector - INFO - package: mysql.connector.plugins
+2025-04-17 23:05:25,867 - mysql.connector - INFO - plugin_name: mysql_native_password
+2025-04-17 23:05:25,867 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2025-04-17 23:05:28,613 - module_loader - ERROR - Error loading module admin_user_portal: [Errno 32] Broken pipe
+2025-04-17 23:05:50,542 - login - INFO - User admin logged in as admin
+2025-04-17 23:40:14,336 - landing_page - INFO - Admin Login selected
+2025-04-17 23:40:19,424 - admin_login - INFO - Admin user admin logged in
+2025-04-17 23:40:21,589 - admin_portal - INFO - Opening Admin User Portal
+2025-04-17 23:40:21,637 - module_loader - INFO - Loading module: admin_user_portal
+2025-04-17 23:40:21,638 - return_to_admin - INFO - Module admin_user_portal.py already patched
+2025-04-17 23:40:21,638 - return_to_admin - INFO - Module cargo_management.py already patched
+2025-04-17 23:40:21,639 - return_to_admin - INFO - Module customer_management.py already patched
+2025-04-17 23:40:21,639 - return_to_admin - INFO - Module driver_management.py already patched
+2025-04-17 23:40:21,639 - return_to_admin - INFO - Module maintenance_management.py already patched
+2025-04-17 23:40:21,639 - return_to_admin - INFO - Module service_management.py already patched
+2025-04-17 23:40:22,056 - mysql.connector - INFO - package: mysql.connector.plugins
+2025-04-17 23:40:22,057 - mysql.connector - INFO - plugin_name: mysql_native_password
+2025-04-17 23:40:22,064 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2025-04-17 23:40:24,967 - return_to_admin - INFO - Added admin navigation to menu bar
+2025-04-17 23:41:15,135 - form_utils - ERROR - DB Error during search: Unread result found
+2025-04-17 23:41:33,560 - admin_portal - INFO - Admin logged out
+2025-04-17 23:41:35,260 - landing_page - INFO - User Login selected
+2025-04-17 23:41:40,884 - user_login - INFO - User local logged in
+2025-04-17 23:41:41,476 - mysql.connector - INFO - package: mysql.connector.plugins
+2025-04-17 23:41:41,476 - mysql.connector - INFO - plugin_name: mysql_native_password
+2025-04-17 23:41:41,485 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2025-04-18 00:26:58,384 - landing_page - INFO - Admin Login selected
+2025-04-18 00:27:03,720 - admin_login - INFO - Admin user admin logged in
+2025-04-18 00:27:05,459 - admin_portal - INFO - Opening Admin User Portal
+2025-04-18 00:27:05,523 - module_loader - INFO - Loading module: admin_user_portal
+2025-04-18 00:27:05,524 - return_to_admin - INFO - Module admin_user_portal.py already patched
+2025-04-18 00:27:05,524 - return_to_admin - INFO - Module cargo_management.py already patched
+2025-04-18 00:27:05,525 - return_to_admin - INFO - Module customer_management.py already patched
+2025-04-18 00:27:05,525 - return_to_admin - INFO - Module driver_management.py already patched
+2025-04-18 00:27:05,525 - return_to_admin - INFO - Module maintenance_management.py already patched
+2025-04-18 00:27:05,525 - return_to_admin - INFO - Module service_management.py already patched
+2025-04-18 00:27:05,989 - mysql.connector - INFO - package: mysql.connector.plugins
+2025-04-18 00:27:05,989 - mysql.connector - INFO - plugin_name: mysql_native_password
+2025-04-18 00:27:05,994 - mysql.connector - INFO - AUTHENTICATION_PLUGIN_CLASS: MySQLNativePasswordAuthPlugin
+2025-04-18 00:27:08,737 - database - INFO - Connection Pool created successfully
+2025-04-18 00:27:08,926 - return_to_admin - INFO - Added admin navigation to menu bar
+2025-04-18 00:28:19,907 - admin_portal - INFO - Admin logged out
